@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="content" version="1.6.0" method="upgrade">
+	<name>Content - RokInjectModule</name>
+    <creationDate>April 10, 2012</creationDate>
+    <author>RocketTheme, LLC</author>
+    <authorEmail>support@rockettheme.com</authorEmail>
+    <authorUrl>http://www.rockettheme.com</authorUrl>
+    <copyright>(C) 2005 - 2012 RocketTheme, LLC. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>1.2</version>
+	<description>RokInjectModule Content Plugin.  Use format [module-{moduleid}] in your article to inject a module. You can also specify a style, eg: [module-28 style=xhtml]</description>
+	<files>
+		<filename plugin="rokinjectmodule">rokinjectmodule.php</filename>
+        <filename>index.html</filename>
+	</files>
+</extension>

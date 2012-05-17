@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" method="upgrade" client="site">
+    <name>RokFeatureTable</name>
+    <author>RocketTheme, LLC</author>
+    <creationDate>January 24, 2012</creationDate>
+    <authorEmail>support@rockettheme.com</authorEmail>
+    <authorUrl>http://www.rockettheme.com</authorUrl>
+    <copyright>(C) 2005 - 2012 RocketTheme, LLC. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>1.2</version>
+    <description><![CDATA[
+	RokFeatureTable is a very simple yet powerful module for providing tabular data. It comes with pre-populated templates and allows to create your own directly from your own template.
+	RokFeatureTable reads custom templates that are found under "templates/your_active_template/admin/rft-templates/". They must be .txt files. You can see a couple of examples from "modules/mod_rokfeaturetable/templates/".
+	]]></description>
+    <files>
+        <filename module="mod_rokfeaturetable">mod_rokfeaturetable.php</filename>
+        <filename>RT-LICENSE.php</filename>
+        <filename>CHANGELOG.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <folder>tmpl/</folder>
+        <folder>fields/</folder>
+        <folder>admin/</folder>
+        <folder>templates/</folder>
+    </files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/modules/mod_rokfeaturetable/fields">
+                <field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+                <field name="builtin_css" type="radio" default="1" label="Built-in CSS" description="">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field name="highlight-col" type="list" default="1" label="Highlight Column"
+                       description="The highlighted Column">
+                    <option value="0">None</option>
+                    <option value="1">Column 1</option>
+                    <option value="2">Column 2</option>
+                    <option value="3">Column 3</option>
+                    <option value="4">Column 4</option>
+                    <option value="5">Column 5</option>
+                    <option value="6">Column 6</option>
+                </field>
+
+                <field name="sample_templates" type="templates" label="Preset Templates" />
+
+                <field name="layout" type="layout" rows="1" columns="1" label="Layout Setup" description="" filter="raw">
+                    <field name="data_col1" type="column" rows="10" cols="50" label="Col1 Data" description="" filter="raw"/>
+                    <field name="data_col2" type="column" rows="10" cols="50" label="Col2 Data" description="" filter="raw"/>
+                    <field name="data_col3" type="column" rows="10" cols="50" label="Col3 Data" description="" filter="raw"/>
+                    <field name="data_col4" type="column" rows="10" cols="50" label="Col4 Data" description="" filter="raw"/>
+                    <field name="data_col5" type="column" rows="10" cols="50" label="Col5 Data" description="" filter="raw"/>
+                    <field name="data_col6" type="column" rows="10" cols="50" label="Col6 Data" description="" filter="raw"/>
+                </field>
+            </fieldset>
+            <fieldset name="advanced">
+                <field name="cache" type="hidden" default="0"/>
+                <field name="module_cache" type="list" default="1" label="Caching"
+                       description="Select whether to cache the content of this module">
+                    <option value="1">Use global</option>
+                    <option value="0">No caching</option>
+                </field>
+                <field name="cache_time" type="text" default="900" label="Cache Time"
+                       description="The time before the module is recached"/>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

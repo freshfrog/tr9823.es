@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony-project.org/2.0/container">
+    <parameters>
+        <parameter key="doctrine.platform.class">RokCommon_Doctrine_Platform_Unsupported</parameter>
+        <parameter key="platforminfo.class">RokCommon_PlatformInfo_Unsupported</parameter>
+        <parameter key="i18n.class">RokCommon_I18N_Unsupported</parameter>
+        <parameter key="header.class">RokCommon_Header_Unsupported</parameter>
+        <parameter key="logger.class">RokCommon_Logger_Unsupported</parameter>
+        <parameter key="dispatcher.class">RokCommon_Dispatcher</parameter>
+        <parameter key="registry.converter.class">RokCommon_Registry_Converter_Unsupported</parameter>
+        <parameter key="cache.class">RokCommon_Cache_DefaultImpl</parameter>
+        <parameter key="cache.lifetime">900</parameter>
+        <parameter key="cache.driver.file.class">RokCommon_Cache_Driver_File</parameter>
+        <parameter key="cache.driver.file.path">/cache</parameter>
+        <parameter key="cache.driver.file.lifetime">%cache.lifetime%</parameter>
+        <parameter key="html.renderer.select.service">html.renderer.select</parameter>
+        <parameter key="html.renderer.select.class">RokCommon_HTML_Select</parameter>
+        <!--
+        Possible Log Levels:
+            ALL
+            TRACE
+            DEBUG
+            INFO
+            NOTICE
+            WARNING
+            ERROR
+            FATAL
+        -->
+        <parameter key="logger.loglevels" type="collection">
+            <!--<parameter>TRACE</parameter>-->
+            <!--<parameter>DEBUG</parameter>-->
+            <parameter>INFO</parameter>
+            <parameter>NOTICE</parameter>
+            <parameter>WARNING</parameter>
+            <parameter>ERROR</parameter>
+            <parameter>FATAL</parameter>
+        </parameter>
+    </parameters>
+    <services>
+        <service id="logger" class="%logger.class%" shared="false">
+            <argument>%logger.loglevels%</argument>
+        </service>
+        <service id="header" class="%header.class%" shared="true"/>
+        <service id="i18n" class="%i18n.class%" shared="true"/>
+        <service id="platforminfo" class="%platforminfo.class%" shared="true"/>
+        <service id="cache" class="%cache.class%" shared="true">
+            <argument type="service">
+                <service class="%cache.driver.file.class%">
+                    <argument>%cache.driver.file.lifetime%</argument>
+                    <argument>%cache.driver.file.path%</argument>
+                </service>
+            </argument>
+            <argument>%cache.lifetime%</argument>
+        </service>
+        <service id="dispatcher" class="%dispatcher.class%"/>
+        <service id="doctrine_platform" class="%doctrine.platform.class%"/>
+        <service id="registry_converter" class="%registry.converter.class%"/>
+        <service id="html.renderer.select" class="%html.renderer.select.class%"/>
+    </services>
+</container>

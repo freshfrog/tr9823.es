@@ -1,0 +1,42 @@
+/**
+ * @package   Enigma Template - RocketTheme
+ * @version   1.2 December 12, 2011
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2011 RocketTheme, LLC
+ * @license   http://www.rockettheme.com/legal/license.php RocketTheme Proprietary Use License
+ */
+ 
+/* Structure */
+body {text-rendering: optimizeSpeed;}
+.rt-section-surround {float: left;}
+
+
+/* Typography */
+.rokradios, .rokchecks {line-height: 140%;}
+#more-articles span {line-height: 24px;}
+.inputstyling-enabled-1 .rt-pollrow input {left: 0 !important;visibility: hidden;}
+p.dropcap2:first-letter, p.dropcap4:first-letter, p.dropcap6:first-letter {padding: 10px 10px;}
+#search_searchword {width: 144px;}
+
+/* Shadows */
+
+/* Transitions */
+a, .readon .button {-moz-transition: color 0.2s linear;}
+.module-content ul.menu li a:hover, .module-content ul.menu li .separator:hover, .module-content ul.menu li .item:hover, #rt-feature .readon {-moz-transition: background-color 0.3s linear;}
+.component-content .rt-article-icons .icon, .top-tab-icon {-moz-transition: opacity 0.3s ease-out;}
+
+/* load transition */
+#rt-transition.rt-hidden {opacity: 0;}
+#rt-transition.rt-visible {opacity: 1;-moz-transition: opacity 0.4s ease-in;transition: opacity 0.4s ease-in;}
+
+/* Demo Presets */
+.menu-preset span {-moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.2);}
+body .menutop .type-module ol li .fusion-module {overflow: visible;}
+.menu-preset a span {-moz-transition: all 0.3s ease-in-out;-moz-animation-iteration-count: 1;position:relative;z-index:3000;-moz-transform: scale(1); cursor:pointer;}
+.menu-preset a:hover span {-moz-transition: all 0.3s ease-in-out;-moz-animation-iteration-count: 1;position:relative;z-index:3000;-moz-transform: scale(1.1); cursor:pointer;}
+
+/* Additional Fixes */
+.roktabs-wrapper .roktabs-links ul li span {-moz-user-select: none;}
+.component-content .contact #emailForm button {padding: 1px 0;}
+#rt-body-surround .register-buttons .readon {float: left;}
+#rt-body-surround .register-buttons a.readon {margin: 0 0 0 9px;}

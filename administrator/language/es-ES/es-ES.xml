@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: es-ES.xml 486 2012-01-24 23:00:41Z shacker $ -->
+<metafile version="2.5" client="administrator">
+	<name>Español (Formal Internacional)</name>
+	<version>2.5.4</version>
+	<creationDate>2012-04-02</creationDate>
+	<author>Proyecto Joomla! Spanish</author>
+	<authorEmail>joomlaspanish@joomlaspanish.org</authorEmail>
+	<authorUrl>www.joomlaspanish.org</authorUrl>
+	<copyright>Copyright (C) 2005 - 2012 Open Source Matters. Todos los derechos reservados.</copyright>
+	<license>GNU General Public License versión 2 o superior; ver LICENSE.txt</license>
+	<description>es-ES idioma administrador para Joomla 2.5</description>
+	<metadata>
+		<name>Español (Formal Internacional)</name>
+		<tag>es-ES</tag>
+		<rtl>0</rtl>
+        <locale>es_ES.UTF-8, spa_ES.UTF-8, es_ES, spanish.UTF-8, spanish, spa_ES, sp_ES, spain, es</locale>
+		<firstDay>1</firstDay>
+	</metadata>
+	<params />
+</metafile>

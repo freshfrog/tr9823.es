@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony-project.org/2.0/container">
+    <parameters>
+        <parameter key="%rokgallery_config.platform.class%">RokGallery_Config_Platform_Unsupported</parameter>
+    </parameters>
+    <services>
+        <service id="rokgallery_config" class="RokGallery_Config">
+            <argument type="service">
+                <service class="%rokgallery_config.platform.class%"/>
+            </argument>
+        </service>
+    </services>
+</container>

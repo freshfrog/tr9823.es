@@ -1,0 +1,14 @@
+/**
+ * @package   Enigma Template - RocketTheme
+ * @version   1.2 December 12, 2011
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2011 RocketTheme, LLC
+ * @license   http://www.rockettheme.com/legal/license.php RocketTheme Proprietary Use License
+ */
+
+#rt-top-surround3 {height: 75px;}
+#rt-header {padding: 15px 0;}
+.rt-header-bottom {font-size: 0;}
+#rt-footer-surround3 {height: 200px;}
+.component-block, .rt-container, #rt-header, #rt-copyright, #rt-logo {zoom: 1;}
+.component-block {padding: 25px;}

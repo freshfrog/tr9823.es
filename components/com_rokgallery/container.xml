@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony-project.org/2.0/container">
+    <imports>
+        <import resource="lib/base_container.xml"/>
+    </imports>
+    <parameters>
+        <parameter key="rokgallery_config.platform.class">RokGallery_Config_Joomla16</parameter>
+    </parameters>
+</container>

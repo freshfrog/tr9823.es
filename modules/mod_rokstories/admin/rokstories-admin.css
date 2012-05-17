@@ -1,0 +1,7 @@
+#jform_params___field1-lbl {display:none;}
+#rokstories-admin-wrapper {float: left;}
+#rokstories-admin-wrapper button {border-radius: 8px;}
+#rokstories-admin-wrapper.loading {background: url(../images/spinner.gif) center right no-repeat; padding-right: 20px;}
+#rokstories-admin-wrapper.success {background: url(../images/success.png) center right no-repeat; padding-right: 20px;}
+#rokstories-admin-wrapper.warning {background: url(../images/warning.png) center right no-repeat; padding-right: 20px;}
+#rokstories-admin-wrapper button.disabled {color: #aaa;}

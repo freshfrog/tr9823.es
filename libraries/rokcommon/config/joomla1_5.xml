@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony-project.org/2.0/container">
+    <imports>
+        <import resource="base.xml"/>
+    </imports>
+    <parameters>
+        <parameter key="platforminfo.class">RokCommon_PlatformInfo_Joomla15</parameter>
+        <parameter key="i18n.class">RokCommon_I18N_Joomla15</parameter>
+        <parameter key="header.class">RokCommon_Header_Joomla</parameter>
+        <parameter key="logger.class">RokCommon_Logger_Joomla15</parameter>
+        <parameter key="doctrine.platform.class">RokCommon_Doctrine_Platform_Joomla15</parameter>
+        <parameter key="cache.group">rokcommon</parameter>
+        <parameter key="cache.driver.file.lifetime">%cache.lifetime%</parameter>
+
+        <parameter key="logger.options" type="collection">
+            <!--<parameter key="format">{DATE}\t{TIME}\t{LEVEL}\t{COMMENT}</parameter>-->
+        </parameter>
+        <parameter key="logger.filename">rokcommon.php</parameter>
+        <parameter key="logger.path">/logs</parameter>
+
+    </parameters>
+    <services>
+        <service id="doctrine_platform" class="%doctrine.platform.class%"/>
+        <service id="cache" class="%cache.class%" shared="true">
+            <argument type="service">
+                <service class="RokCommon_Cache_Driver_Joomla">
+                    <argument>%cache.group%</argument>
+                    <argument>%cache.lifetime%</argument>
+                </service>
+            </argument>
+            <argument>%cache.lifetime%</argument>
+        </service>
+        <service id="logger" class="%logger.class%" shared="false">
+            <argument>%logger.loglevels%</argument>
+            <argument>%logger.filename%</argument>
+            <argument>%logger.options%</argument>
+            <!--<argument>%logger.path%</argument>-->
+        </service>
+    </services>
+</container>

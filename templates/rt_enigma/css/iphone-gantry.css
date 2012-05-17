@@ -1,0 +1,58 @@
+/**
+ * @package   Enigma Template - RocketTheme
+ * @version   1.2 December 12, 2011
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2011 RocketTheme, LLC
+ * @license   http://www.rockettheme.com/legal/license.php RocketTheme Proprietary Use License
+*/
+
+/* Reminder:  320 / 480 */
+body {word-wrap: break-word;}
+body .rt-container {background: transparent;}
+body h1 {border-bottom: 0;}
+a {-webkit-transition: color 0 ease-out;}
+body.rt-normal #form-login .inputbox, body.rt-flipped #form-login .inputbox {width: 100px !important;}
+body.rt-normal #rt-header #form-login-remember, body.rt-flipped #rt-header #form-login-remember {position:relative;margin-top:10px;top:0;}
+body .rt-navigation-bar {background: transparent;}
+body .logo-block {margin:0 auto 20px;padding: 0 10px 10px;}
+body #rt-header {padding: 0 !important;}
+body #rt-topbar {margin: 0 0 30px;}
+body #rt-logo-surround {margin: 0 -5px;float: none;width: 104%;height:60px;}
+body .component-content .rt-article {margin: 0 10px 35px !important;}
+body.rt-normal #rt-bg-image, body.rt-flipped #rt-bg-image {-webkit-background-size: 360px auto;}
+body.rt-right #rt-bg-image, body.rt-left #rt-bg-image {-webkit-background-size: 480px auto;}
+body .cols4 .rg-gm-slice-list li {width: 50%;}
+body .page-overlay-light .component-block {box-shadow: none !important;-webkit-box-shadow: none !important;}
+body #rt-feature {margin: 0;border-radius: 0;}
+body #rt-showcase-surround2 {padding-bottom:0;}
+body .component-block {border-radius: 0;}
+body .feature-offset #rt-main {padding-top: 0;}
+body .rt-block {padding: 2px;}
+body .component-content .rt-article.date-padding {padding-left: 50px;}
+body .component-content .rt-date-posted {left: -10px;}
+body #rt-page-surround {margin: 0;padding: 0 5px 25px 5px;}
+body #rt-bg-image {left: 0;margin-left: 0;top:80px;}
+body.rt-normal #rt-bg-image, body.rt-flipped #rt-bg-image {width: 100%;}
+body.rt-right #rt-bg-image, body.rt-left #rt-bg-image {width: 100%;}
+
+body #rt-footer .rt-block {padding: 10px;}
+body #developed-by a, body #powered-by a {margin: 0 auto;height: 26px;vertical-align: middle;}
+body #rt-header #form-login ul {position:relative;top:0;margin-top:10px;}
+#form-login fieldset p {margin:0;}
+
+body.cssstyle-style1 #rt-logo {background: url(../images/logo/style1/logo.png) 0 0 no-repeat;}
+body.cssstyle-style2 #rt-logo {background: url(../images/logo/style2/logo.png) 0 0 no-repeat;}
+body.cssstyle-style3 #rt-logo {background: url(../images/logo/style3/logo.png) 0 0 no-repeat;}
+body.cssstyle-style4 #rt-logo {background: url(../images/logo/style4/logo.png) 0 0 no-repeat;}
+body.cssstyle-style5 #rt-logo {background: url(../images/logo/style5/logo.png) 0 0 no-repeat;}
+body.cssstyle-style6 #rt-logo {background: url(../images/logo/style6/logo.png) 0 0 no-repeat;}
+body.cssstyle-style7 #rt-logo {background: url(../images/logo/style7/logo.png) 0 0 no-repeat;}
+body.cssstyle-style8 #rt-logo {background: url(../images/logo/style8/logo.png) 0 0 no-repeat;}
+
+
+body #developed-by a {height: 16px;}
+#rocket {float: none;}
+
+/* Joomla */
+body .weblinks .rt-joomla-table img {width: 16px;height: 16px;}
+.component-content .edit img {display: none;}

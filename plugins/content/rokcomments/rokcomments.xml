@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.5" type="plugin" group="content">
+    <name>Content - RokComments</name>
+    <author>RocketTheme, LLC</author>
+    <creationDate>December 27, 2011</creationDate>
+    <copyright>(C) 2005 - 2011 RocketTheme, LLC. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <authorEmail>support@rockettheme.com</authorEmail>
+    <authorUrl>http://www.rockettheme.com</authorUrl>
+    <version>1.3</version>
+    <description>
+      <![CDATA[
+      <style>
+          .rc-wrapper h1 {margin-left:0;}
+          .rc-wrapper h2 {margin-top:40px;color:#333;}
+          span.readonly .rc-wrapper {font-weight:normal;}
+          .rc-wrapper img {float:right;margin:0 0 20px 20px;}
+          .rc-wrapper .under {text-decoration:underline;}
+          .rc-wrapper li {list-style-type:decimal !important;margin-left:30px;}
+          .plg-desc {margin-left:0 !Important;}
+      </style>
+      <div class="rc-wrapper">
+
+      <h1>RokComments</h1>
+      <p> RokComments is a powerful content plugin that allows for easy integration of third-party JavaScript-based comment systems such as <b><a href="#intnse">IntenseDebate</a></b>, <b><a href="#facebook">Facebook</a></b>, <b><a href="disqus">Disqus</a></b>, <b><a href="#livefyre">Livefyre</a></b>, and <b>JS-Kit</b> <em>(Deprecated)</em></p>
+
+      <a name="intense"></a>
+      <h2>IntenseDebate</h2>
+      <p><img src="../plugins/content/rokcomments/images/id-comments-acct.jpg" "/>To setup RokComments to use IntenseDebate, you first have to sign up at <a href="http://intensedebate.com" target="_new">http://intensedebate.com</a>. Once you have created an account, you need to select <strong>"Sites"</strong> from the top menu, then click <strong>"+ Add blog/site"</strong> from the dropdown. Enter the URL to your website and click Next Step. for Step 2, choose <strong>Generic Install</strong> from the options, then click Next Step.  This last page has the JavaScript that you normally would need to install the comments.</p>
+      <p>Just save the long string variable that is displayed in the <strong>idcomments_acct</strong> var. This is the only thing you will need to configure RokComments to use IntenseDebate.
+      </p>
+      <h3>Configure</h3>
+      <p>Open up the <strong>RokComments Content Plugin</strong> via the <strong>Plugin Manager</strong> in the Joomla Administrator.  Set the following attributes:</p>
+      <ol>
+          <li>Set <strong>Comment System</strong> to <strong class="under">IntenseDebate</strong></li>
+          <li>Enable/Disable the <strong>Show Comment Count</strong> and the <strong>Show Comment Icon</strong> options as you desire.</li>
+          <li>If you are using <strong class="under">Menus + Categories</strong> for the Activation Method, ensure you select the correct <strong>Menus</strong> and/or <strong>Categories</strong> where you would like the comments to show.</li>
+          <li>In the <strong>IntenseDebate Account</strong> input field, put the <strong class="under">idcomments_act</strong> value you saved earlier. eg: <strong class="under">2a8f5c96e2fb1deb5a485678a9c523f0</strong> </li>
+      </ol>
+
+      <a name="facebook"></a>
+      <h2>Facebook</h2>
+      <p><img src="../plugins/content/rokcomments/images/fb-appid.jpg" "/>The first step to integrating Facebook comments is to sign up as a Facebook developer.  To do this you must enable and authorize the <strong>Facebook Developer</strong> application to access your Facebook account. Visit the <a href="https://developers.facebook.com/apps" target="_new">FaceBook App Here</a> and click <strong>"Allow"</strong>.  The next step is to click the <strong>"+ Create New App"</strong> button on the "Apps" page.  Enter something like <strong>"MySite Comments"</strong> in the App Display Name field, and some unique name for the App Namespace, such as <strong>"mysite-comments"</strong>, review and agree to the Facebook Platform Policies and click "Continue". Enter the Security Check validation and click "Submit".  The next page is the <strong>"Basic Settings"</strong> and here you need to enter your domain for the <strong>App Domain</strong>, eg: <strong class="under">mysite.com</strong>.  You also need to click the <strong>Website</strong> block in the "Select how your app integrates with Facebook" section and put the URL of your website, eg: <strong class="under">http://www.mysite.com</strong>.</p>
+      <p>Lastly copy the <strong>App ID</strong> value as you will need this to configure RokComments to use Facebook.</p>
+      <h3>Configure</h3>
+      <p>Open up the <strong>RokComments Content Plugin</strong> via the <strong>Plugin Manager</strong> in the Joomla Administrator.  Set the following attributes:</p>
+      <ol>
+          <li>Set <strong>Comment System</strong> to <strong class="under">Facebook</strong></li>
+          <li>Enable/Disable the <strong>Show Comment Count</strong> option as you desire. <strong>Show Comment Icon</strong> has no effect for Facebook.</li>
+          <li>If you are using <strong class="under">Menus + Categories</strong> for the Activation Method, ensure you select the correct <strong>Menus</strong> and/or <strong>Categories</strong> where you would like the comments to show.</li>
+          <li>In the <strong>Facebook AppId</strong> input field, put the <strong class="under">App ID</strong> value you saved earlier. eg: <strong class="under">236773289710058</strong> </li>
+          <li>Enter the width in pixels of the comment area, just adjust this field till it fits nicely under your content</li>
+          <li>Enter a comma separated list of Facebook User IDs of people you want to be able to moderate these comments.  Alternatively you can moderate them via the <a href="http://developers.facebook.com/tools/comments" target="_new">Developer Tools</a></li>
+      </ol>
+
+      <a name="disqus"></a>
+      <h2>Disqus</h2>
+      <p><img src="../plugins/content/rokcomments/images/dis-shortname.jpg" "/>In order to use Disqus comments you need to first Sign Up at <a href="http://disqus.com/" target="_new">http://disqus.com</a>.  After signing up you need to click the <strong>"+ Add"</strong> button in the <strong>Your Sites</strong> sidebar section.  Fill in the form with your information for the your site.</p>
+      <p>The <strong>"shortname"</strong> is important as this is the unique identifier you will use when configuring RokComments.  On the Settings panel configure the options as you like, or just leave the defaults before hitting continue.  You will be able to moderate these comments directly by going to the shortname url, eg: <strong>http://mysite.disqus.com</strong>.</p>
+      <h3>Configure</h3>
+      <p>Open up the <strong>RokComments Content Plugin</strong> via the <strong>Plugin Manager</strong> in the Joomla Administrator.  Set the following attributes:</p>
+      <ol>
+          <li>Set <strong>Comment System</strong> to <strong class="under">Disqus</strong></li>
+          <li>Enable/Disable the <strong>Show Comment Count</strong> and the <strong>Show Comment Icon</strong> options as you desire.</li>
+          <li>If you are using <strong class="under">Menus + Categories</strong> for the Activation Method, ensure you select the correct <strong>Menus</strong> and/or <strong>Categories</strong> where you would like the comments to show.</li>
+          <li>In the <strong>Disqus Shorname</strong> input field, put the <strong class="under">shortname</strong> value you saved earlier. eg: <strong class="under">mysite</strong> </li>
+          <li>If you need to test the comments on an inaccessible website during development you can enable the <strong>Developer Mode</strong> option here.</li>
+      </ol>
+
+      <a name="livefyre"></a>
+      <h2>Livefyre</h2>
+      <p><img src="../plugins/content/rokcomments/images/lf-siteid.jpg" "/>The first step to installing Livefyre comments on your site is to Sign Up via the <a href="http://www.livefyre.com" target="_new">http://www.livefyre.com</a> website.  When you have signed up, you should click <strong>"Install"</strong> or go directly to the <a href="http://www.livefyre.com/install/" target="_new">install URL</a>. Enter the URL of your site and then click the <strong>"Custom"</strong> option for the <strong>Platform</strong>, and then click the "Keep Going!" button.</p>
+      <p>That's all there is to it.  You will be provided with a chunk of JavaScript, but all you need to do is copy the numeric <strong>site_id</strong> variable as this will be used to configure RokComments to use Livefyre.</p>
+
+      <h3>Configure</h3>
+      <p>Open up the <strong>RokComments Content Plugin</strong> via the <strong>Plugin Manager</strong> in the Joomla Administrator.  Set the following attributes:</p>
+      <ol>
+          <li>Set <strong>Comment System</strong> to <strong class="under">Livefyre</strong></li>
+          <li>NOTE: Comment Counts are not supported in Livefyre currently, so those options will be ignored.</li>
+          <li>If you are using <strong class="under">Menus + Categories</strong> for the Activation Method, ensure you select the correct <strong>Menus</strong> and/or <strong>Categories</strong> where you would like the comments to show.</li>
+          <li>In the <strong>Livefyre Site ID</strong> input field, put the <strong class="under">site_id</strong> value you saved earlier. eg: <strong class="under">291224</strong> </li>
+      </ol>
+      
+       </div>
+      ]]>
+    </description>
+    <files>
+        <filename plugin="rokcomments">rokcomments.php</filename>
+        <folder>css</folder>
+        <folder>fields</folder>
+        <folder>images</folder>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic" addfieldpath="/plugins/content/rokcomments/fields">
+                <field name="system" type="list" default="1" label="Comment System"
+                       description="Select the Comment System you would like to use and enter the details in the appopriate fieldaters grouping">
+                    <option value="intensedebate">IntenseDebate</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="disqus">Disqus</option>
+                    <option value="livefyre">Livefyre</option>
+                    <option value="jskit">JS-Kit (Deprecated)</option>
+                </field>
+                <field name="spacer_global" type="spacer"
+                       label="&lt;div style=&quot;font-weight:bold;font-size:11px;color:#000;padding:8px;margin:0;background:#ffd;&quot;&gt;'Search Engine Friendly URLs' must be enabled in the Global Configuration for ALL of these comment systems to function properly. It's a good idea for SEO anyway, so just turn it on!&lt;/div&gt;"
+                       default="" description=""/>
+                <field name="showcount" type="radio" default="1" label="Show Comment Count"
+                       description="Enable comment count if supported by the Comment System - (NOTE: Does not show with CODE activation method nor for Livefyre comments currently)">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="showicon" type="radio" default="rk-icon" label="Show Comment Icon"
+                       description="Enable comment icon if count is shown">
+                    <option value="rk-none">No</option>
+                    <option value="rk-icon">Yes</option>
+                </field>
+                <field name="tagmode" type="list" default="0" label="Tagging mode"
+                       description="Advanced feature - Leave as default unless you run into uniqueness problems as it makes it easier to move your comments later if needed">
+                    <option value="0">Basic (alias)</option>
+                    <option value="1">Slug (id:alias)</option>
+                    <option value="2">Path (article Path)</option>
+                    <option value="3">Numeric (article id)</option>
+                </field>
+                <field name="method" type="list" default="id" label="Activation Method"
+                       description="You can Activate comments by Code {rokcomments}, by Menus + Categories">
+                    <option value="code">Code</option>
+                    <option value="id">Menus + Categories</option>
+                </field>
+                <field name="spacer_menus_cats" type="spacer"
+                       label="&lt;div id=&quot;joomla-label&quot;  style=&quot;font-weight:normal;font-size:12px;color:#fff;padding:4px;margin:0;background:#666;&quot;&gt;Menus + Categories Selections&lt;/div&gt;"
+                       default="" description=""/>
+                <field name="menus" type="menuitem" default="" label="Select Menus" description="" multiple="multiple"/>
+                <field name="categories" type="category" default="" label="Select Categories" description="" extension="com_content" multiple="multiple"/>
+                <field name="spacer_intense" type="spacer"
+                       label="&lt;div id=&quot;joomla-label&quot;  style=&quot;font-weight:normal;font-size:12px;color:#fff;padding:4px;margin:0;background:#666;&quot;&gt;IntenseDebate&lt;/div&gt;"
+                       default="" description=""/>
+
+                <field name="id-account" type="text" size="30" default="" label="IntenseDebate Account" description=""/>
+                <field name="spacer_facebook" type="spacer"
+                       label="&lt;div id=&quot;joomla-label&quot;  style=&quot;font-weight:normal;font-size:12px;color:#fff;padding:4px;margin:0;background:#666;&quot;&gt;Facebook&lt;/div&gt;"
+                       default="" description=""/>
+
+                <field name="fb-appid" type="text" size="30" default="" label="Facebook AppId" description="This is the 15 digit numeric ID that is generated when you create a new Facebook Application via https://developers.facebook.com/apps"/>
+                <field name="fb-width" type="text" size="30" default="500" label="Comment Width" description="Width (in px) of comment area"/>
+                <field name="fb-postcount" type="text" size="30" default="10" label="Post Count" description="Number of initial posts to show"/>
+                <field name="fb-modid" type="text" size="30" default="" label="Moderator ID" description="Facebook User id of moderators.  Comma seperate multiple IDs. Moderators setup via Facebook Apps configuration will automatically be functional. Administration can be via the site or via http://developers.facebook.com/tools/comments"/>
+
+                <field name="spacer_disq" type="spacer"
+                       label="&lt;div id=&quot;joomla-label&quot;  style=&quot;font-weight:normal;font-size:12px;color:#fff;padding:4px;margin:0;background:#666;&quot;&gt;Disqus&lt;/div&gt;"
+                       default="" description=""/>
+                <field name="d-subdomain" type="text" size="30" default="" label="Disqus Shortname"
+                       description="Set the subdomain to what you registered with Disqus, sometimes referred to as the 'short name' (without '.disqus.com')."/>
+                <field name="d-devmode" type="radio" default="0" label="Developer Mode"
+                       description="Enable this if you are testing behind a firewall or proxy, and not yet on your live site.">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </field>
+                <field name="spacer_livefyre" type="spacer"
+                       label="&lt;div id=&quot;joomla-label&quot;  style=&quot;font-weight:normal;font-size:12px;color:#fff;padding:4px;margin:0;background:#666;&quot;&gt;Livefyre&lt;/div&gt;"
+                       default="" description=""/>
+                <field name="lf-siteid" type="text" size="30" default="" label="Livefyre Site ID"
+                       description="This is the numeric Site ID that is generated for you when you add a site via livefyre.com"/>
+                <field name="spacer_jskit" type="spacer"
+                       label="&lt;div id=&quot;joomla-label&quot;  style=&quot;font-weight:normal;font-size:12px;color:#fff;padding:4px;margin:0;background:#666;&quot;&gt;JS-Kit&lt;/div&gt;"
+                       default="" description=""/>
+                <field name="js-domain" type="text" size="30" default="" label="JS-Kit Domain"
+                       description="Set the domain to what you registered with JS-lot (eg www.yoursite.com)"/>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

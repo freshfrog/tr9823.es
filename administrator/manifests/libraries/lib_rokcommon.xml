@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="library" version="1.6" method="upgrade">
+	<name>RokCommon</name>
+	<libraryname>rokcommon</libraryname>
+	<description>RokCommon Shared Library</description>
+    <creationDate>April 10, 2012</creationDate>
+    <author>RocketTheme, LLC</author>
+    <authorEmail>support@rockettheme.com</authorEmail>
+    <authorUrl>http://www.rockettheme.com</authorUrl>
+    <copyright>(C) 2005 - 2012 RocketTheme, LLC. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>2.6.1</version>
+	<files folder=".">
+        <filename>Doctrine.php</filename>
+        <filename>functions.php</filename>
+        <filename>include.php</filename>
+        <filename>index.html</filename>
+        <filename>requirements.php</filename>
+        <filename>phpQuery.php</filename>
+        <folder>config</folder>
+        <folder>Doctrine</folder>
+        <folder>Overrides</folder>
+        <folder>RokCommon</folder>
+    </files>
+    <updateservers>
+		<server type="collection" priority="1" name="RocketTheme Update Directory">http://updates.rockettheme.com/joomla/updates.xml</server> <!-- useful for single extensions -->
+	</updateservers>
+</extension>

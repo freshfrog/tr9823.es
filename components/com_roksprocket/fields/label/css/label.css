@@ -1,0 +1,13 @@
+/**
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2012 RocketTheme, LLC
+ * @license   http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+ */
+.spacer-wrapper h6 {
+  margin:20px 0 10px;
+  padding:0 0 5px;
+  font-size:14px;
+  color:#444444;
+  border-bottom:1px solid #dddddd;
+}
+.spacer-wrapper.first h6 { margin-top:0; }

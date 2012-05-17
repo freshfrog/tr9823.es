@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" version="1.6.0" method="upgrade">
+	<name>System - RokCommon</name>
+    <creationDate>April 10, 2012</creationDate>
+    <author>RocketTheme, LLC</author>
+    <authorEmail>support@rockettheme.com</authorEmail>
+    <authorUrl>http://www.rockettheme.com</authorUrl>
+    <copyright>(C) 2005 - 2012 RocketTheme, LLC. All rights reserved.</copyright>
+    <license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+    <version>2.6.1</version>
+	<description>RokCommon System Plugin</description>
+	<files>
+		<filename plugin="rokcommon">rokcommon.php</filename>
+        <folder>lib</folder>
+        <folder>language</folder>
+        <folder>sql</folder>
+	</files>
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall folder="sql">
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+    <config>
+        <fields name="params">
+        </fields>
+    </config>
+</extension>

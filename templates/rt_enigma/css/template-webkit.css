@@ -1,0 +1,31 @@
+/**
+ * @package   Enigma Template - RocketTheme
+ * @version   1.2 December 12, 2011
+ * @author    RocketTheme http://www.rockettheme.com
+ * @copyright Copyright (C) 2007 - 2011 RocketTheme, LLC
+ * @license   http://www.rockettheme.com/legal/license.php RocketTheme Proprietary Use License
+ */
+
+/* Core */
+body, h1, h2, h3, h4, h5 {-webkit-text-rendering: optimizeLegibility;}
+
+/* Shadows */
+
+/* Transitions */
+a, .readon .button {-webkit-transition: color 0.2s linear;}
+.module-content ul.menu li a:hover, .module-content ul.menu li .separator:hover, .module-content ul.menu li .item:hover, #rt-feature .readon {-webkit-transition: background-color 0.3s linear;}
+.component-content .rt-article-icons .icon, .top-tab-icon {-webkit-transition: opacity 0.3s ease-out;}
+
+/* Demo Presets */
+.menu-preset span {-webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.2);}
+body .menutop .type-module ol li .fusion-module {overflow: visible;}
+.menu-preset a span {-webkit-transition: all 0.3s ease-in-out;-webkit-animation-iteration-count: 1;position:relative;z-index:3000;-webkit-transform: scale(1); cursor:pointer;}
+.menu-preset a:hover span {-webkit-transition: all 0.3s ease-in-out;-webkit-animation-iteration-count: 1;position:relative;z-index:3000;-webkit-transform: scale(1.1); cursor:pointer;}
+
+/* Additional Fixes */
+input:-webkit-autofill {background-color: transparent !important;}
+.roktabs-wrapper .roktabs-links ul li span {-webkit-user-select: none;}
+
+/* load transition */
+#rt-transition.rt-hidden {opacity: 0;}
+#rt-transition.rt-visible {opacity: 1;-webkit-transition: opacity 0.4s ease-in;transition: opacity 0.4s ease-in;}
