@@ -229,8 +229,10 @@ defined('_JEXEC') or die('Restricted access');
 
 		<?php if(isset($this->links) && count($this->links)): ?>
 		<!-- Link items -->
-		<div id="itemListLinks">
-			<h4><?php echo JText::_('K2_MORE'); ?></h4>
+		<div>
+			<div class="module-title">
+			<h4 class="title"><?php echo JText::_('RECIPES_MORE_ON_CATEGORY'); ?></h4>
+			</div>
 			<?php foreach($this->links as $key=>$item): ?>
 
 			<?php

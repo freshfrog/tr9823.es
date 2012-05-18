@@ -18,9 +18,9 @@ defined('_JEXEC') or die('Restricted access');
 	<?php endif; ?>
 
 	<?php if(count($items)): ?>
-  <ul>
+  <ul class="checkmark">
     <?php foreach ($items as $key=>$item):	?>
-    <li class="<?php echo ($key%2) ? "odd" : "even"; if(count($items)==$key+1) echo ' lastItem'; ?>">
+    <li class="<?php if(count($items)==$key+1) echo ' lastItem'; ?>">
 
       <!-- Plugins: BeforeDisplay -->
       <?php echo $item->event->BeforeDisplay; ?>

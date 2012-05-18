@@ -5,3 +5,6 @@ installation/
 logs/
 tmp/
 images/
+.project
+.settings
+.buildpath
