@@ -72,7 +72,7 @@ defined('_JEXEC') or die('Restricted access');
 			$this->item->params->get('itemImageGalleryAnchor') ||
 			$this->item->params->get('itemCommentsAnchor')
 		): ?>
-		<a rel="author" href="<?php echo $item->author->link; ?>"><?php echo $item->author->name; ?></a>
+
 		<div class="itemToolbar" style="background: none; border: none; margin: 0">
 			<ul style="text-align: left">
 				<li>			
@@ -80,13 +80,7 @@ defined('_JEXEC') or die('Restricted access');
 					<!-- Item Author -->
 					<span class="itemAuthor">
 						<em><?php echo JText::_('K2_FONT_SIZE'); ?>&nbsp;</em>
-						<span itemprop="author">
-						<?php if(empty($this->item->created_by_alias)): ?>
-						<?php echo $this->item->author->name; ?>
-						<?php else: ?>
-						<?php echo $this->item->author->name; ?>
-						<?php endif; ?>
-						</span>
+						<a rel="author" href="<?php echo $item->author->link; ?>" itemprop="author"><?php echo $this->item->author->name; ?></a>
 					</span>
 					<?php endif; ?>
 				</li>
