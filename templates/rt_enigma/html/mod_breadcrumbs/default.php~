@@ -32,11 +32,11 @@ defined('_JEXEC') or die;
 		    //echo '<span class="no-link">' . $list[$i]->name . '</span>';
 		}
 		if( $i < $count -2 && !empty($list[$i]->link) ){
-			echo ' <span class="floatleft" style="font-size: 10px; margin-right: 5px"> '.$separator.' </span>';
+			echo ' <span class="floatleft" style="font-size: 10px"> '.$separator.' </span>';
 		}
 	}  else if ($params->get('showLast', 1)) { // when $i == $count -1 and 'showLast' is true
 		if($i > 0){
-			echo ' <span class="floatleft" style="font-size: 10px; margin-right: 5px"> '.$separator.' </span>';
+			echo ' <span class="floatleft" style="font-size: 10px"> '.$separator.' </span>';
 		}
 		echo '<span class="no-link">' . $list[$i]->name . '</span>';
 	}
