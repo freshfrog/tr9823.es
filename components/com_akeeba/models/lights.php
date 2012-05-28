@@ -21,9 +21,9 @@ class AkeebaModelLights extends FOFModel
 		$db = $this->getDBO();
 		$query = $db->getQuery(true)
 			->select(array(
-				$db->nq('id'),
-				$db->nq('description')
-			))->from($db->nq('#__ak_profiles'));
+				$db->qn('id'),
+				$db->qn('description')
+			))->from($db->qn('#__ak_profiles'));
 		$db->setQuery($query);
 		$rawList = $db->loadAssocList();
 

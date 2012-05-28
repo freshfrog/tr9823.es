@@ -437,15 +437,15 @@ class AEPlatformJoomla25 extends AEPlatformAbstract
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select(array(
-				$db->nq('u').'.'.$db->nq('name'),
-				$db->nq('u').'.'.$db->nq('email'),
+				$db->qn('u').'.'.$db->qn('name'),
+				$db->qn('u').'.'.$db->qn('email'),
 			))
-			->from($db->nq('#__users').' AS '.$db->nq('u'))
+			->from($db->qn('#__users').' AS '.$db->qn('u'))
 			->join(
-				'INNER', $db->nq('#__user_usergroup_map').' AS '.$db->nq('m').' ON ('.
-				$db->nq('m').'.'.$db->nq('user_id').' = '.$db->nq('u').'.'.$db->nq('id').')'
+				'INNER', $db->qn('#__user_usergroup_map').' AS '.$db->qn('m').' ON ('.
+				$db->qn('m').'.'.$db->qn('user_id').' = '.$db->qn('u').'.'.$db->qn('id').')'
 			)
-			->where($db->nq('m').'.'.$db->nq('group_id').' = '.$db->q('8'));
+			->where($db->qn('m').'.'.$db->qn('group_id').' = '.$db->q('8'));
 		$db->setQuery($query);
 		$superAdmins = $db->loadAssocList();
 

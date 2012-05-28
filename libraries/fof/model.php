@@ -12,7 +12,7 @@ jimport('joomla.application.component.model');
 
 /**
  * FrameworkOnFramework model class
- * 
+ *
  * FrameworkOnFramework is a set of classes whcih extend Joomla! 1.5 and later's
  * MVC framework with features making maintaining complex software much easier,
  * without tedious repetitive copying of the same code over and over again.
@@ -29,13 +29,13 @@ class FOFModel extends JModel
 
 	protected $pagination = null;
 	protected $total = 0;
-	
+
 	protected $input = array();
 
 	/**
 	 * Returns a new model object. Unless overriden by the $config array, it will
 	 * try to automatically populate its state from the request variables.
-	 * 
+	 *
 	 * @param string $type
 	 * @param string $prefix
 	 * @param array $config
@@ -46,7 +46,7 @@ class FOFModel extends JModel
 		$type		= preg_replace('/[^A-Z0-9_\.-]/i', '', $type);
 		$modelClass	= $prefix.ucfirst($type);
 		$result		= false;
-		
+
 		// Guess the component name and include path
 		preg_match('/(.*)Model$/', $prefix, $m);
 		$component = 'com_'.strtolower($m[1]);
@@ -65,7 +65,7 @@ class FOFModel extends JModel
 		if (!class_exists( $modelClass ))
 		{
 			$include_paths = JModel::addIncludePath();
-			
+
 			$isCLI = version_compare(JVERSION, '1.6.0', 'ge') ? (JFactory::getApplication() instanceof JException) : false;
 			if($isCLI) {
 				$isAdmin = false;
@@ -84,7 +84,7 @@ class FOFModel extends JModel
 				);
 			}
 			$include_paths = array_merge($extra_paths,$include_paths);
-			
+
 			// Try to load the model file
 			jimport('joomla.filesystem.path');
 			$path = JPath::find(
@@ -96,19 +96,19 @@ class FOFModel extends JModel
 				require_once $path;
 			}
 		}
-		
+
 		if (!class_exists( $modelClass )) {
 			$modelClass = 'FOFModel';
 		}
 
 		$result = new $modelClass($config);
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Returns a new instance of a model, with the state reset to defaults
-	 * 
+	 *
 	 * @param string $type
 	 * @param string $prefix
 	 * @param array $config
@@ -126,11 +126,11 @@ class FOFModel extends JModel
 			->savestate(0);
 		return $ret;
 	}
-	
+
 	/**
 	 * Public class constructor
-	 * 
-	 * @param type $config 
+	 *
+	 * @param type $config
 	 */
 	public function __construct($config = array())
 	{
@@ -142,7 +142,7 @@ class FOFModel extends JModel
 		} else {
 			$this->input = JRequest::get('default', 3);
 		}
-		
+
 		// Set the $name/$_name variable
 		$component = FOFInput::getCmd('option','com_foobar',$this->input);
 		if(array_key_exists('option', $config)) $component = $config['option'];
@@ -173,7 +173,7 @@ class FOFModel extends JModel
 			}
 			$this->table = FOFInflector::singularize($view);
 		}
-		
+
 		// Get and store the pagination request variables
 		$isCLI = version_compare(JVERSION, '1.6.0', 'ge') ? (JFactory::getApplication() instanceof JException) : false;
 		if($isCLI) {
@@ -236,14 +236,14 @@ class FOFModel extends JModel
 				$this->setId($id);
 			}
 		}
-		
+
 		return $this;
 	}
 
 	/**
 	 * Sets the ID and resets internal data
 	 * @param int $id The ID to use
-	 * 
+	 *
 	 * @return FOFModel
 	 */
 	public function setId($id=0)
@@ -265,7 +265,7 @@ class FOFModel extends JModel
 
 	/**
 	 * Sets a list of IDs for batch operations from an array and resets the model
-	 * 
+	 *
 	 * @return FOFModel
 	 */
 	public function setIds($idlist)
@@ -294,7 +294,7 @@ class FOFModel extends JModel
 
 	/**
 	 * Resets the model, like it was freshly loaded
-	 * 
+	 *
 	 * @return FOFModel
 	 */
 	public function reset()
@@ -306,16 +306,16 @@ class FOFModel extends JModel
 		$this->pagination = null;
 		$this->total = 0;
 		$this->otable = null;
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Clears the model state, but doesn't touch the internal lists of records,
 	 * record tables or record id variables. To clear these values, please use
 	 * reset().
-	 * 
-	 * @return FOFModel 
+	 *
+	 * @return FOFModel
 	 */
 	public function clearState()
 	{
@@ -324,23 +324,23 @@ class FOFModel extends JModel
 		} else {
 			$this->_state = new JObject();
 		}
-		
+
 		return $this;
 	}
-	
+
 	public function clearInput()
 	{
 		$this->input = array();
-		
+
 		return $this;
 	}
-	
+
 	/**
 	 * Returns a single item. It uses the id set with setId, or the first ID in
 	 * the list of IDs for batch operations
-	 * 
+	 *
 	 * @param int|null $id Force a primary key ID to the model
-	 * 
+	 *
 	 * @return FOFTable A copy of the item's JTable array
 	 */
 	public function &getItem($id = null)
@@ -349,7 +349,7 @@ class FOFModel extends JModel
 			$this->record = null;
 			$this->setId($id);
 		}
-		
+
 		if(empty($this->record))
 		{
 			$table = $this->getTable($this->table);
@@ -388,7 +388,7 @@ class FOFModel extends JModel
 	{
 		return $this->getItemList($overrideLimits, $group);
 	}
-	
+
 	/**
 	 * Returns a list of items
 	 * @param bool $overrideLimits When true, the limits (pagination) will be ignored
@@ -409,30 +409,30 @@ class FOFModel extends JModel
 
 		return $this->list;
 	}
-	
+
 	/**
 	 * A cross-breed between getItem and getItemList. It runs the complete query,
 	 * like getItemList does. However, instead of returning an array of ad-hoc
 	 * objects, it binds the data from the first item fetched on the list to an
 	 * instance of the table object and returns that table object instead.
-	 * 
+	 *
 	 * @param bool $overrideLimits
-	 * @return FOFTable 
+	 * @return FOFTable
 	 */
 	public function &getFirstItem($overrideLimits = false)
 	{
 		$table = $this->getTable($this->table);
-		
+
 		$list = $this->getItemList($overrideLimits);
 		if(!empty($list)) {
 			$firstItem = array_shift($list);
 			$table->bind($firstItem);
 		}
 		unset($list);
-		
+
 		return $table;
 	}
-	
+
 	/**
 	 * Binds the data to the model and tries to save it
 	 * @param array|object $data The source data array or object
@@ -444,6 +444,8 @@ class FOFModel extends JModel
 
 		$table = $this->getTable($this->table);
 
+		if(is_object($data)) $data = clone($data);
+
 		$key = $table->getKeyName();
 		if(array_key_exists($key, (array)$data))
 		{
@@ -451,7 +453,7 @@ class FOFModel extends JModel
 			$oid = $aData[$key];
 			$table->load($oid);
 		}
-		
+
 		if(!$this->onBeforeSave($data, $table)) {
 			return false;
 		}
@@ -465,7 +467,7 @@ class FOFModel extends JModel
 			// Remove the session data
 			JFactory::getSession()->set($this->getHash().'savedata', null);
 		}
-		
+
 		$this->onAfterSave($table);
 
 		$this->otable = $table;
@@ -491,7 +493,7 @@ class FOFModel extends JModel
 			$table = $this->getTable($this->table);
 			foreach($this->id_list as $id) {
 				if(!$this->onBeforeDelete($id, $table)) continue;
-				
+
 				if(!$table->delete($id)) {
 					$this->setError($table->getError());
 					return false;
@@ -517,9 +519,9 @@ class FOFModel extends JModel
 				$user = $oUser->id;
 			}
 			$table = $this->getTable($this->table);
-			
+
 			if(!$this->onBeforePublish($table)) return false;
-			
+
 			if(!$table->publish($this->id_list, $publish, $user) ) {
 				$this->setError($table->getError());
 				return false;
@@ -594,7 +596,7 @@ class FOFModel extends JModel
 		if(!$status) return false;
 
 		if(!$this->onBeforeMove($table)) return false;
-		
+
 		$status = $table->move($dirn);
 		if(!$status) {
 			$this->setError($table->getError());
@@ -668,7 +670,7 @@ class FOFModel extends JModel
 
 			$this->_db->setQuery( (string)$query );
 			$this->_db->query();
-			
+
 			$this->total = $this->_db->loadResult();
 		}
 
@@ -687,7 +689,7 @@ class FOFModel extends JModel
 		if(empty($key)) {
 			return parent::getState();
 		}
-		
+
 		// Get the savestate status
 		$savestate = parent::getState('savestate');
 		if(is_null($savestate)) {
@@ -706,7 +708,7 @@ class FOFModel extends JModel
 
 			if(is_null($value))	return $default;
 		}
-		
+
 		if( strtoupper($filter_type) == 'RAW' )
 		{
 			return $value;
@@ -740,7 +742,7 @@ class FOFModel extends JModel
 	{
 		$isCLI = version_compare(JVERSION, '1.6.0', 'ge') ? (JFactory::getApplication() instanceof JException) : false;
 		if($isCLI) return $default;
-		
+
 		$app = JFactory::getApplication();
 		if(method_exists($app, 'getUserState')) {
 			$old_state = $app->getUserState( $key );
@@ -759,7 +761,7 @@ class FOFModel extends JModel
 
 		return $new_state;
 	}
-	
+
 	/**
 	 * Returns an object list
 	 *
@@ -776,10 +778,10 @@ class FOFModel extends JModel
 		$result = $this->_db->loadObjectList($group);
 
 		$this->onProcessList($result);
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
@@ -798,11 +800,11 @@ class FOFModel extends JModel
 				$name = FOFInflector::singularize($this->getName());
 			}
 		}
-		
+
 		if(empty($prefix)) {
 			$prefix = ucfirst($this->getName()).'Table';
 		}
-		
+
 		if(empty($options)) {
 			$options = array('input'=>$this->input);
 		}
@@ -815,7 +817,7 @@ class FOFModel extends JModel
 
 		return null;
 	}
-	
+
 	/**
 	 * Method to load and return a model object.
 	 *
@@ -841,10 +843,10 @@ class FOFModel extends JModel
 		$instance = FOFTable::getAnInstance($name, $prefix, $config );
 		return $instance;
 	}
-	
+
 	/**
 	 * Creates the WHERE part of the reorder query
-	 * @return type 
+	 * @return type
 	 */
 	public function getReorderWhere()
 	{
@@ -860,13 +862,23 @@ class FOFModel extends JModel
 		$tableName = $table->getTableName();
 		$tableKey = $table->getKeyName();
 		$db = $this->getDBO();
-		
-		$query = FOFQueryAbstract::getNew()
-			->select('*')
-			->from($db->nameQuote($tableName));
-		
+
+		if(version_compare(JVERSION, '3.0', 'ge')) {
+			$query = FOFQueryAbstract::getNew()
+				->select('*')
+				->from($db->qn($tableName));
+		} else {
+			$query = FOFQueryAbstract::getNew()
+				->select('*')
+				->from($db->nameQuote($tableName));
+		}
+
 		$where = array();
-		$fieldsArray = $db->getTableFields($tableName, true);
+		if(version_compare(JVERSION, '3.0', 'ge')) {
+			$fieldsArray = $db->getTableColumns($tableName, true);
+		} else {
+			$fieldsArray = $db->getTableFields($tableName, true);
+		}
 		$fields = array_shift($fieldsArray);
 		foreach($fields as $fieldname => $fieldtype) {
 			$filterName = ($fieldname == $tableKey) ? 'id' : $fieldname;
@@ -875,41 +887,57 @@ class FOFModel extends JModel
 				switch($fieldname) {
 					case $table->getColumnAlias('title'):
 					case $table->getColumnAlias('description'):
-						$query->where('('.$db->nameQuote($fieldname).' LIKE '.$db->Quote('%'.$filterState.'%').')');
-						break;
-					
-					case $table->getColumnAlias('enabled'):
-						if($filterState !== '') {
-							$query->where($db->nameQuote($fieldname).' = '.$db->Quote((int)$filterState));
+						if(version_compare(JVERSION, '3.0', 'ge')) {
+							$query->where('('.$db->qn($fieldname).' LIKE '.$db->q('%'.$filterState.'%').')');
+						} else {
+							$query->where('('.$db->nameQuote($fieldname).' LIKE '.$db->Quote('%'.$filterState.'%').')');
 						}
 						break;
-					
+
+					case $table->getColumnAlias('enabled'):
+						if($filterState !== '') {
+							if(version_compare(JVERSION, '3.0', 'ge')) {
+								$query->where($db->qn($fieldname).' = '.$db->q((int)$filterState));
+							} else {
+								$query->where($db->nameQuote($fieldname).' = '.$db->Quote((int)$filterState));
+							}
+						}
+						break;
+
 					default:
-						$query->where('('.$db->nameQuote($fieldname).'='.$db->Quote($filterState).')');
+						if(version_compare(JVERSION, '3.0', 'ge')) {
+							$query->where('('.$db->qn($fieldname).'='.$db->q($filterState).')');
+						} else {
+							$query->where('('.$db->nameQuote($fieldname).'='.$db->Quote($filterState).')');
+						}
 						break;
 				}
 			}
 		}
-		
+
 		if(!$overrideLimits) {
 			$order = $this->getState('filter_order',null,'cmd');
 			if(!in_array($order, array_keys($this->getTable()->getData()))) $order = $tableKey;
 			$dir = $this->getState('filter_order_Dir', 'ASC', 'cmd');
-			$query->order($db->nameQuote($order).' '.$dir);
+			if(version_compare(JVERSION, '3.0', 'ge')) {
+				$query->order($db->qn($order).' '.$dir);
+			} else {
+				$query->order($db->nameQuote($order).' '.$dir);
+			}
 		}
-		
+
 		return $query;
 	}
 
 	/**
 	 * Builds the count query used in getTotal()
-	 * @return type 
+	 * @return type
 	 */
 	public function buildCountQuery()
 	{
 		return false;
 	}
-	
+
 	/**
 	 * Clones the model object and returns the clone
 	 * @return FOFModel
@@ -919,7 +947,7 @@ class FOFModel extends JModel
 		$clone = clone($this);
 		return $clone;
 	}
-	
+
 	/**
 	 * Magic getter; allows to use the name of model state keys as properties
 	 * @param string $name
@@ -928,7 +956,7 @@ class FOFModel extends JModel
 	public function __get($name) {
 		return $this->getState($name);
 	}
-	
+
 	/**
 	 * Magic setter; allows to use the name of model state keys as properties
 	 * @param string $name
@@ -937,26 +965,26 @@ class FOFModel extends JModel
 	public function __set($name, $value) {
 		return $this->setState($name, $value);
 	}
-	
+
 	/**
 	 * Magic caller; allows to use the name of model state keys as methods to
 	 * set their values.
-	 * 
+	 *
 	 * @param string $name
 	 * @param mixed $arguments
-	 * @return FOFModel 
+	 * @return FOFModel
 	 */
 	public function __call($name, $arguments) {
 		$arg1 = array_shift($arguments);
 		$this->setState($name, $arg1);
 		return $this;
 	}
-	
+
 	/**
 	 * This method can be overriden to automatically do something with the
 	 * list results array. You are supposed to modify the list which was passed
 	 * in the parameters; DO NOT return a new array!
-	 * 
+	 *
 	 * @param array $resultArray An array of objects, each row representing a record
 	 */
 	protected function onProcessList(&$resultArray)
@@ -967,45 +995,45 @@ class FOFModel extends JModel
 	 * This method runs after an item has been gotten from the database in a read
 	 * operation. You can modify it before it's returned to the MVC triad for
 	 * further processing.
-	 * 
-	 * @param JTable $record 
+	 *
+	 * @param JTable $record
 	 */
 	protected function onAfterGetItem(&$record)
 	{
 	}
-	
+
 	/**
 	 * This method runs before the $data is saved to the $table. Return false to
 	 * stop saving.
-	 * 
+	 *
 	 * @param array $data
-	 * @param JTable $table 
+	 * @param JTable $table
 	 * @return bool
 	 */
 	protected function onBeforeSave(&$data, &$table)
 	{
 		return true;
 	}
-	
+
 	/**
 	 * This method runs after the data is saved to the $table.
-	 * 
-	 * @param JTable $table 
+	 *
+	 * @param JTable $table
 	 */
 	protected function onAfterSave(&$table)
 	{
 	}
-	
+
 	/**
 	 * This method runs before the record with key value of $id is deleted from $table
-	 * 
-	 * @param JTable $table 
+	 *
+	 * @param JTable $table
 	 */
 	protected function onBeforeDelete(&$id, &$table)
 	{
 		return true;
 	}
-	
+
 	protected function onAfterDelete($id)
 	{
 	}
@@ -1019,32 +1047,32 @@ class FOFModel extends JModel
 	{
 		return true;
 	}
-	
+
 	protected function onBeforeHit(&$table)
 	{
 		return true;
 	}
-	
+
 	protected function onAfterHit(&$table)
 	{
 	}
-	
+
 	protected function onBeforeMove(&$table)
 	{
 		return true;
 	}
-	
+
 	protected function onAfterMove(&$table)
 	{
 	}
-	
+
 	protected function onBeforeReorder(&$table)
 	{
 		return true;
 	}
-	
+
 	protected function onAfterReorder(&$table)
 	{
 	}
-	
+
 }

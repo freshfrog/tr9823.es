@@ -90,10 +90,10 @@ class AkeebaModelProfiles extends FOFModel
 		
 		$db = $this->getDBO();
 		$query = $db->getQuery(true)
-			->select($db->nq('id'))
-			->from($db->nq('#__ak_profiles'));
+			->select($db->qn('id'))
+			->from($db->qn('#__ak_profiles'));
 		$db->setQuery($query);
-		$profiles = $db->loadResultArray();
+		$profiles = $db->loadColumn();
 
 		$engines = array();
 		foreach($profiles as $profileID) {

@@ -32,6 +32,9 @@ class Com_AkeebaInstallerScript
 				'akeebaupdatecheck'		=> 0,
 				'srp'					=> 0,
 				'oneclickaction'		=> 0,
+			),
+			'jmonitoring' => array(
+				'akeebabackup'			=> 1,
 			)
 		)
 	);
@@ -84,6 +87,8 @@ class Com_AkeebaInstallerScript
 			'administrator/components/com_akeeba/controllers/acl.php',
 			'administrator/components/com_akeeba/models/acl.php',
 			'administrator/components/com_akeeba/tables/acl.php',
+			'administrator/components/com_akeeba/akeeba/platform/joomla15/platform.php',
+			'administrator/components/com_akeeba/akeeba/platform/joomlacli/platform.php',
 			// Files renamed after using FOF
 			'administrator/components/com_akeeba/plugins/controllers/remotefiles.php',
 			'administrator/components/com_akeeba/models/cpanel.php',
@@ -103,6 +108,7 @@ class Com_AkeebaInstallerScript
 			'administrator/components/com_akeeba/plugins/models/stw.php',
 			'administrator/components/com_akeeba/plugins/models/restore.php',
 			'administrator/components/com_akeeba/plugins/models/srprestore.php',
+			'administrator/components/com_akeeba/plugins/models/profiles.php',
 			'administrator/components/com_akeeba/views/profiles/tmpl/default_edit.php',
 			'administrator/components/com_akeeba/views/buadmin/tmpl/default_comment.php',
 			'administrator/components/com_akeeba/views/fsfilter/tmpl/default_tab.php',
@@ -122,6 +128,8 @@ class Com_AkeebaInstallerScript
 			'components/com_akeeba/views/light/tmpl/default_step.php',
 		),
 		'folders' => array(
+			'administrator/components/com_akeeba/akeeba/platform/joomla15',
+			'administrator/components/com_akeeba/akeeba/platform/joomlacli',
 			'administrator/components/com_akeeba/views/installer',
 			'administrator/components/com_akeeba/views/srprestore',
 			'administrator/components/com_akeeba/views/stw',
@@ -230,11 +238,11 @@ class Com_AkeebaInstallerScript
 		
 		# ----- System - System Restore Points
 		$sql = $db->getQuery(true)
-			->select($db->nq('extension_id'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('type').' = '.$db->q('plugin'))
-			->where($db->nq('element').' = '.$db->q('srp'))
-			->where($db->nq('folder').' = '.$db->q('system'));
+			->select($db->qn('extension_id'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('type').' = '.$db->q('plugin'))
+			->where($db->qn('element').' = '.$db->q('srp'))
+			->where($db->qn('folder').' = '.$db->q('system'));
 		$db->setQuery($sql);
 		$id = $db->loadResult();
 		if($id)
@@ -245,11 +253,11 @@ class Com_AkeebaInstallerScript
 
 		# ----- System - Akeeba Update Check
 		$sql = $db->getQuery(true)
-			->select($db->nq('extension_id'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('type').' = '.$db->q('plugin'))
-			->where($db->nq('element').' = '.$db->q('akeebaupdatecheck'))
-			->where($db->nq('folder').' = '.$db->q('system'));
+			->select($db->qn('extension_id'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('type').' = '.$db->q('plugin'))
+			->where($db->qn('element').' = '.$db->q('akeebaupdatecheck'))
+			->where($db->qn('folder').' = '.$db->q('system'));
 		$db->setQuery($sql);
 		$id = $db->loadResult();
 		if($id)
@@ -312,7 +320,7 @@ class Com_AkeebaInstallerScript
 	<tbody>
 		<tr class="row0">
 			<td class="key" colspan="2">Akeeba Backup component</td>
-			<td><strong>Installed</strong></td>
+			<td><strong style="color: green">Installed</strong></td>
 		</tr>
 		<tr class="row1">
 			<td class="key" colspan="2">
@@ -334,7 +342,7 @@ class Com_AkeebaInstallerScript
 		<tr class="row<?php echo ($rows++ % 2); ?>">
 			<td class="key"><?php echo $module['name']; ?></td>
 			<td class="key"><?php echo ucfirst($module['client']); ?></td>
-			<td><strong><?php echo ($module['result'])?'Installed':'Not installed'; ?></strong></td>
+			<td><strong style="color: <?php echo ($module['result'])? "green" : "red"?>"><?php echo ($module['result'])?'Installed':'Not installed'; ?></strong></td>
 		</tr>
 		<?php endforeach;?>
 		<?php endif;?>
@@ -348,7 +356,7 @@ class Com_AkeebaInstallerScript
 		<tr class="row<?php echo ($rows++ % 2); ?>">
 			<td class="key"><?php echo ucfirst($plugin['name']); ?></td>
 			<td class="key"><?php echo ucfirst($plugin['group']); ?></td>
-			<td><strong><?php echo ($plugin['result'])?'Installed':'Not installed'; ?></strong></td>
+			<td><strong style="color: <?php echo ($plugin['result'])? "green" : "red"?>"><?php echo ($plugin['result'])?'Installed':'Not installed'; ?></strong></td>
 		</tr>
 		<?php endforeach; ?>
 		<?php endif; ?>
@@ -422,7 +430,7 @@ class Com_AkeebaInstallerScript
 	<tbody>
 		<tr class="row0">
 			<td class="key" colspan="2"><?php echo 'Akeeba Backup '.JText::_('Component'); ?></td>
-			<td><strong><?php echo JText::_('Removed'); ?></strong></td>
+			<td><strong style="color: green"><?php echo JText::_('Removed'); ?></strong></td>
 		</tr>
 		<?php if (count($status->modules)) : ?>
 		<tr>
@@ -434,7 +442,7 @@ class Com_AkeebaInstallerScript
 		<tr class="row<?php echo (++ $rows % 2); ?>">
 			<td class="key"><?php echo $module['name']; ?></td>
 			<td class="key"><?php echo ucfirst($module['client']); ?></td>
-			<td><strong><?php echo ($module['result'])?JText::_('Removed'):JText::_('Not removed'); ?></strong></td>
+			<td><strong style="color: <?php echo ($module['result'])? "green" : "red"?>"><?php echo ($module['result'])?JText::_('Removed'):JText::_('Not removed'); ?></strong></td>
 		</tr>
 		<?php endforeach;?>
 		<?php endif;?>
@@ -448,7 +456,7 @@ class Com_AkeebaInstallerScript
 		<tr class="row<?php echo (++ $rows % 2); ?>">
 			<td class="key"><?php echo ucfirst($plugin['name']); ?></td>
 			<td class="key"><?php echo ucfirst($plugin['group']); ?></td>
-			<td><strong><?php echo ($plugin['result'])?JText::_('Removed'):JText::_('Not removed'); ?></strong></td>
+			<td><strong style="color: <?php echo ($plugin['result'])? "green" : "red"?>"><?php echo ($plugin['result'])?JText::_('Removed'):JText::_('Not removed'); ?></strong></td>
 		</tr>
 		<?php endforeach; ?>
 		<?php endif; ?>
@@ -470,13 +478,13 @@ class Com_AkeebaInstallerScript
 		$query = $db->getQuery(true);
 		$query->select('id')
 			->from('#__assets')
-			->where($db->nameQuote('name').' = '.$db->Quote($this->_akeeba_extension));
+			->where($db->qn('name').' = '.$db->q($this->_akeeba_extension));
 		$db->setQuery($query);
-		$ids = $db->loadResultArray();
+		$ids = $db->loadColumn();
 		if(!empty($ids)) foreach($ids as $id) {
 			$query = $db->getQuery(true);
 			$query->delete('#__assets')
-				->where($db->nameQuote('id').' = '.$db->Quote($id));
+				->where($db->qn('id').' = '.$db->q($id));
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -485,13 +493,13 @@ class Com_AkeebaInstallerScript
 		$query = $db->getQuery(true);
 		$query->select('extension_id')
 			->from('#__extensions')
-			->where($db->nameQuote('element').' = '.$db->Quote($this->_akeeba_extension));
+			->where($db->qn('element').' = '.$db->q($this->_akeeba_extension));
 		$db->setQuery($query);
-		$ids = $db->loadResultArray();
+		$ids = $db->loadColumn();
 		if(!empty($ids)) foreach($ids as $id) {
 			$query = $db->getQuery(true);
 			$query->delete('#__extensions')
-				->where($db->nameQuote('extension_id').' = '.$db->Quote($id));
+				->where($db->qn('extension_id').' = '.$db->q($id));
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -500,15 +508,15 @@ class Com_AkeebaInstallerScript
 		$query = $db->getQuery(true);
 		$query->select('id')
 			->from('#__menu')
-			->where($db->nameQuote('type').' = '.$db->Quote('component'))
-			->where($db->nameQuote('menutype').' = '.$db->Quote('main'))
-			->where($db->nameQuote('link').' LIKE '.$db->Quote('index.php?option='.$this->_akeeba_extension));
+			->where($db->qn('type').' = '.$db->q('component'))
+			->where($db->qn('menutype').' = '.$db->q('main'))
+			->where($db->qn('link').' LIKE '.$db->q('index.php?option='.$this->_akeeba_extension));
 		$db->setQuery($query);
-		$ids = $db->loadResultArray();
+		$ids = $db->loadColumn();
 		if(!empty($ids)) foreach($ids as $id) {
 			$query = $db->getQuery(true);
 			$query->delete('#__menu')
-				->where($db->nameQuote('id').' = '.$db->Quote($id));
+				->where($db->qn('id').' = '.$db->q($id));
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -525,9 +533,9 @@ class Com_AkeebaInstallerScript
 		$query = $db->getQuery(true);
 		$query->select('extension_id')
 			->from('#__extensions')
-			->where($db->nameQuote('element').' = '.$db->Quote($this->_akeeba_extension));
+			->where($db->qn('element').' = '.$db->q($this->_akeeba_extension));
 		$db->setQuery($query);
-		$ids = $db->loadResultArray();
+		$ids = $db->loadColumn();
 		if(count($ids) > 1) {
 			asort($ids);
 			$extension_id = array_shift($ids); // Keep the oldest id
@@ -535,7 +543,7 @@ class Com_AkeebaInstallerScript
 			foreach($ids as $id) {
 				$query = $db->getQuery(true);
 				$query->delete('#__extensions')
-					->where($db->nameQuote('extension_id').' = '.$db->Quote($id));
+					->where($db->qn('extension_id').' = '.$db->q($id));
 				$db->setQuery($query);
 				$db->query();
 			}
@@ -547,7 +555,7 @@ class Com_AkeebaInstallerScript
 		$query = $db->getQuery(true);
 		$query->select('id')
 			->from('#__assets')
-			->where($db->nameQuote('name').' = '.$db->Quote($this->_akeeba_extension));
+			->where($db->qn('name').' = '.$db->q($this->_akeeba_extension));
 		$db->setQuery($query);
 		$ids = $db->loadObjectList();
 		if(count($ids) > 1) {
@@ -557,7 +565,7 @@ class Com_AkeebaInstallerScript
 			foreach($ids as $id) {
 				$query = $db->getQuery(true);
 				$query->delete('#__assets')
-					->where($db->nameQuote('id').' = '.$db->Quote($id));
+					->where($db->qn('id').' = '.$db->q($id));
 				$db->setQuery($query);
 				$db->query();
 			}
@@ -567,26 +575,26 @@ class Com_AkeebaInstallerScript
 		$query = $db->getQuery(true);
 		$query->select('id')
 			->from('#__menu')
-			->where($db->nameQuote('type').' = '.$db->Quote('component'))
-			->where($db->nameQuote('menutype').' = '.$db->Quote('main'))
-			->where($db->nameQuote('link').' LIKE '.$db->Quote('index.php?option='.$this->_akeeba_extension));
+			->where($db->qn('type').' = '.$db->q('component'))
+			->where($db->qn('menutype').' = '.$db->q('main'))
+			->where($db->qn('link').' LIKE '.$db->q('index.php?option='.$this->_akeeba_extension));
 		$db->setQuery($query);
-		$ids1 = $db->loadResultArray();
+		$ids1 = $db->loadColumn();
 		if(empty($ids1)) $ids1 = array();
 		$query = $db->getQuery(true);
 		$query->select('id')
 			->from('#__menu')
-			->where($db->nameQuote('type').' = '.$db->Quote('component'))
-			->where($db->nameQuote('menutype').' = '.$db->Quote('main'))
-			->where($db->nameQuote('link').' LIKE '.$db->Quote('index.php?option='.$this->_akeeba_extension.'&%'));
+			->where($db->qn('type').' = '.$db->q('component'))
+			->where($db->qn('menutype').' = '.$db->q('main'))
+			->where($db->qn('link').' LIKE '.$db->q('index.php?option='.$this->_akeeba_extension.'&%'));
 		$db->setQuery($query);
-		$ids2 = $db->loadResultArray();
+		$ids2 = $db->loadColumn();
 		if(empty($ids2)) $ids2 = array();
 		$ids = array_merge($ids1, $ids2);
 		if(!empty($ids)) foreach($ids as $id) {
 			$query = $db->getQuery(true);
 			$query->delete('#__menu')
-				->where($db->nameQuote('id').' = '.$db->Quote($id));
+				->where($db->qn('id').' = '.$db->q($id));
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -629,7 +637,7 @@ class Com_AkeebaInstallerScript
 					$sql = $db->getQuery(true)
 						->select('COUNT(*)')
 						->from('#__modules')
-						->where($db->nq('module').' = '.$db->q('mod_'.$module));
+						->where($db->qn('module').' = '.$db->q('mod_'.$module));
 					$db->setQuery($sql);
 					$count = $db->loadResult();
 					$installer = new JInstaller;
@@ -647,11 +655,11 @@ class Com_AkeebaInstallerScript
 							$modulePosition = 'icon';
 						}
 						$sql = $db->getQuery(true)
-							->update($db->nq('#__modules'))
-							->set($db->nq('position'.' = '.$db->q($modulePosition)))
-							->where($db->nq('module').' = '.$db->q('mod_'.$module));
+							->update($db->qn('#__modules'))
+							->set($db->qn('position'.' = '.$db->q($modulePosition)))
+							->where($db->qn('module').' = '.$db->q('mod_'.$module));
 						if($modulePublished) {
-							$sql->set($db->nq('published').' = '.$db->q('1'));
+							$sql->set($db->qn('published').' = '.$db->q('1'));
 						}
 						$db->setQuery($sql);
 						$db->query();
@@ -659,31 +667,31 @@ class Com_AkeebaInstallerScript
 						// B. Change the ordering of back-end modules to 1 + max ordering
 						if($folder == 'admin') {
 							$query = $db->getQuery(true);
-							$query->select('MAX('.$db->nq('ordering').')')
-								->from($db->nq('#__modules'))
-								->where($db->nq('position').'='.$db->q($modulePosition));
+							$query->select('MAX('.$db->qn('ordering').')')
+								->from($db->qn('#__modules'))
+								->where($db->qn('position').'='.$db->q($modulePosition));
 							$db->setQuery($query);
 							$position = $db->loadResult();
 							$position++;
 
 							$query = $db->getQuery(true);
-							$query->update($db->nq('#__modules'))
-								->set($db->nq('ordering').' = '.$db->q($position))
-								->where($db->nq('module').' = '.$db->q('mod_'.$module));
+							$query->update($db->qn('#__modules'))
+								->set($db->qn('ordering').' = '.$db->q($position))
+								->where($db->qn('module').' = '.$db->q('mod_'.$module));
 							$db->setQuery($query);
 							$db->query();
 						}
 						
 						// C. Link to all pages
 						$query = $db->getQuery(true);
-						$query->select('id')->from($db->nq('#__modules'))
-							->where($db->nq('module').' = '.$db->q('mod_'.$module));
+						$query->select('id')->from($db->qn('#__modules'))
+							->where($db->qn('module').' = '.$db->q('mod_'.$module));
 						$db->setQuery($query);
 						$moduleid = $db->loadResult();
 
 						$query = $db->getQuery(true);
-						$query->select('*')->from($db->nq('#__modules_menu'))
-							->where($db->nq('moduleid').' = '.$db->q($moduleid));
+						$query->select('*')->from($db->qn('#__modules_menu'))
+							->where($db->qn('moduleid').' = '.$db->q($moduleid));
 						$db->setQuery($query);
 						$assignments = $db->loadObjectList();
 						$isAssigned = !empty($assignments);
@@ -713,13 +721,14 @@ class Com_AkeebaInstallerScript
 					if(!is_dir($path)) {
 						$path = "$src/plugins/plg_$plugin";
 					}
+					if(!is_dir($path)) continue;
 
 					// Was the plugin already installed?
 					$query = $db->getQuery(true)
 						->select('COUNT(*)')
-						->from($db->nq('#__extensions'))
-						->where($db->nq('element').' = '.$db->q($plugin))
-						->where($db->nq('folder').' = '.$db->q($folder));
+						->from($db->qn('#__extensions'))
+						->where($db->qn('element').' = '.$db->q($plugin))
+						->where($db->qn('folder').' = '.$db->q($folder));
 					$db->setQuery($query);
 					$count = $db->loadResult();
 
@@ -730,10 +739,10 @@ class Com_AkeebaInstallerScript
 
 					if($published && !$count) {
 						$query = $db->getQuery(true)
-							->update($db->nq('#__extensions'))
-							->set($db->nq('enabled').' = '.$db->q('1'))
-							->where($db->nq('element').' = '.$db->q($plugin))
-							->where($db->nq('folder').' = '.$db->q($folder));
+							->update($db->qn('#__extensions'))
+							->set($db->qn('enabled').' = '.$db->q('1'))
+							->where($db->qn('element').' = '.$db->q($plugin))
+							->where($db->qn('folder').' = '.$db->q($folder));
 						$db->setQuery($query);
 						$db->query();
 					}
@@ -768,20 +777,22 @@ class Com_AkeebaInstallerScript
 				if(count($modules)) foreach($modules as $module => $modulePreferences) {
 					// Find the module ID
 					$sql = $db->getQuery(true)
-						->select($db->nq('extension_id'))
-						->from($db->nq('#__extensions'))
-						->where($db->nq('element').' = '.$db->q('mod_'.$module))
-						->where($db->nq('type').' = '.$db->q('module'));
+						->select($db->qn('extension_id'))
+						->from($db->qn('#__extensions'))
+						->where($db->qn('element').' = '.$db->q('mod_'.$module))
+						->where($db->qn('type').' = '.$db->q('module'));
 					$db->setQuery($sql);
 					$id = $db->loadResult();
 					// Uninstall the module
-					$installer = new JInstaller;
-					$result = $installer->uninstall('module',$id,1);
-					$status->modules[] = array(
-						'name'=>'mod_'.$module,
-						'client'=>$folder,
-						'result'=>$result
-					);
+					if($id) {
+						$installer = new JInstaller;
+						$result = $installer->uninstall('module',$id,1);
+						$status->modules[] = array(
+							'name'=>'mod_'.$module,
+							'client'=>$folder,
+							'result'=>$result
+						);
+					}
 				}
 			}
 		}
@@ -791,11 +802,11 @@ class Com_AkeebaInstallerScript
 			foreach($this->installation_queue['plugins'] as $folder => $plugins) {
 				if(count($plugins)) foreach($plugins as $plugin => $published) {
 					$sql = $db->getQuery(true)
-						->select($db->nq('extension_id'))
-						->from($db->nq('#__extensions'))
-						->where($db->nq('type').' = '.$db->q('plugin'))
-						->where($db->nq('element').' = '.$db->q($plugin))
-						->where($db->nq('folder').' = '.$db->q($folder));
+						->select($db->qn('extension_id'))
+						->from($db->qn('#__extensions'))
+						->where($db->qn('type').' = '.$db->q('plugin'))
+						->where($db->qn('element').' = '.$db->q($plugin))
+						->where($db->qn('folder').' = '.$db->q($folder));
 					$db->setQuery($sql);
 
 					$id = $db->loadResult();

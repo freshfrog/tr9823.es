@@ -10,9 +10,6 @@
 // Protect from unauthorized access
 defined('_JEXEC') or die();
 
-// Load framework base classes
-jimport('joomla.application.component.controller');
-
 /**
  * Folder bowser controller
  *

@@ -305,7 +305,8 @@ class AkeebaControllerBuadmin extends FOFController
 		}
 
 		$model = $this->getThisModel();
-		return $model->delete($id);
+		$model->setState('id', $id);
+		return $model->delete();
 	}
 
 	/**
@@ -324,7 +325,8 @@ class AkeebaControllerBuadmin extends FOFController
 		}
 
 		$model = $this->getModel('statistics');
-		return $model->deleteFile($id);
+		$model->setState('id', $id);
+		return $model->deleteFile();
 	}
 
 	public function onBeforeEdit() {

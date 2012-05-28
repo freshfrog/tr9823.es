@@ -185,9 +185,9 @@ ENDSQL;
 		$db = JFactory::getDBO();
 		
 		// First, try using DESCRIBE (preferred method)
-		$db->setQuery('DESCRIBE '.$db->nameQuote($table));
+		$db->setQuery('DESCRIBE '.$db->qn($table));
 		try {
-			$columns = $db->loadResultArray(0);
+			$columns = $db->loadColumn(0);
 		} catch(DatabaseException $e) {
 			$columns = null;
 		}
@@ -197,14 +197,14 @@ ENDSQL;
 		}
 		
 		// DESCRIBE failed. Try the hard way...
-		$db->setQuery('SHOW CREATE TABLE '.$db->nameQuote($table));
+		$db->setQuery('SHOW CREATE TABLE '.$db->qn($table));
 		try {
-			$creates = $db->loadResultArray(1);
+			$creates = $db->loadColumn(1);
 		} catch(DatabaseException $e) {
 			return false;
 		}
 		$create = $creates[0];
-		$search = $db->nameQuote($column);
+		$search = $db->qn($column);
 		
 		return strpos($search, $create) !== false;
 	}
@@ -218,7 +218,7 @@ ENDSQL;
 	private function tableExists($table)
 	{
 		$db = JFactory::getDBO();
-		return $this->runSQL('SELECT COUNT(*) FROM '.$db->nameQuote($table));
+		return $this->runSQL('SELECT COUNT(*) FROM '.$db->qn($table));
 	}
 	
 	private function isMySQL()

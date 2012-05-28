@@ -142,6 +142,10 @@ ENDSCRIPT;
 		// Add live help
 		AkeebaHelperIncludes::addHelp('buadmin');
 		
+		if($task == 'restorepoint') {
+			$this->setLayout('restorepoint');
+		}
+		
 		return true;
 	}
 	

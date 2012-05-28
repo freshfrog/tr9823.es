@@ -196,7 +196,7 @@ div.itemIntroText {color:#444;line-height:24px;padding:4px 0 12px 0;}
 
 div.itemFullText {}
 	div.itemFullText h3 {margin:0;padding:16px 0 4px 0;}
-	div.itemFullText p {}
+	div.itemFullText p { text-align: jutify; }
 	div.itemFullText img {}
 
 div.itemExtraFields {margin:16px 0 0 0;padding:8px 0 0 0;border-top:1px dotted #ddd;}

@@ -35,7 +35,7 @@ class AECoreDatabase extends AEAbstractObject
 		{
 			if (!empty($instances[$signature]))
 			{
-				$db =& $instances[$signature];
+				$db = $instances[$signature];
 				$db = null;
 				unset($instances[$signature]);
 			}
@@ -69,9 +69,7 @@ class AECoreDatabase extends AEAbstractObject
 				if(substr($driver,0,2) != 'AE') $driver = 'AEDriver'.ucfirst($driver);
 			}
 
-			$instance	= new $driver($options);
-
-			$instances[$signature] = & $instance;
+			$instances[$signature] = new $driver($options);
 		}
 
 		return $instances[$signature];

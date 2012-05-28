@@ -1,4 +1,15 @@
 <?php die();?>
+Akeeba Backup 3.5.1
+================================================================================
++ Plugin for JMonitoring, notifies you on failed and stale backups
+# [HIGH] Blank pages when accessing various Akeeba Backup views on some hosts which tried to load a certain PHP file twice, despite that making no sense whatsoever :s
+# [HIGH] Obsolete files from very old releases (3.3.x and earlier) were not being removed, causing fatal errors.
+# [MEDIUM] Restore points lacked the "Roll back" button
+# [LOW] Akeeba Backup Core tries to install plugins existing only in the Professional release
+# [LOW] Akeeba Backup Core would try to uninstall an inexistent module
+# [LOW] The akeeba-backup.php CLI script wouldn't load the language files, causing the backup confirmation email to fail
+# [LOW] A Javascript popup was shown when saving the Post-Configuration Wizard settings in Akeeba Backup Core
+
 Akeeba Backup 3.5.0
 ================================================================================
 ~ Default minimum update stability is now set to stable

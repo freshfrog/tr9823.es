@@ -196,10 +196,10 @@ abstract class LiveUpdateAbstractConfig extends JObject
 		$db = JFactory::getDbo();
 		if( version_compare(JVERSION,'1.6.0','ge') ) {
 			$sql = $db->getQuery(true)
-				->select($db->nq('params'))
-				->from($db->nq('#__extensions'))
-				->where($db->nq('type').' = '.$db->q('component'))
-				->where($db->nq('element').' = '.$db->q($this->_extensionName));
+				->select($db->qn('params'))
+				->from($db->qn('#__extensions'))
+				->where($db->qn('type').' = '.$db->q('component'))
+				->where($db->qn('element').' = '.$db->q($this->_extensionName));
 		} else {
 			$sql = 'SELECT '.$db->nameQuote('params').' FROM '.$db->nameQuote('#__components').
 				' WHERE '.$db->nameQuote('option').' = '.$db->Quote($this->_extensionName).

@@ -37,18 +37,18 @@ class AkeebaViewPostsetup extends FOFViewHtml
 		$db = JFactory::getDBO();
 		
 		$query = $db->getQuery(true)
-			->select($db->nq('enabled'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('element').' = '.$db->q('oneclickaction'))
-			->where($db->nq('folder').' = '.$db->q('system'));
+			->select($db->qn('enabled'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('element').' = '.$db->q('oneclickaction'))
+			->where($db->qn('folder').' = '.$db->q('system'));
 		$db->setQuery($query);
 		$enabledOCA = $db->loadResult();
 		
 		$query = $db->getQuery(true)
-			->select($db->nq('enabled'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('element').' = '.$db->q('akeebaupdatecheck'))
-			->where($db->nq('folder').' = '.$db->q('system'));
+			->select($db->qn('enabled'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('element').' = '.$db->q('akeebaupdatecheck'))
+			->where($db->qn('folder').' = '.$db->q('system'));
 		$db->setQuery($query);
 		$enabledAUC = $db->loadResult();
 		
@@ -70,10 +70,10 @@ class AkeebaViewPostsetup extends FOFViewHtml
 		$db = JFactory::getDBO();
 		
 		$query = $db->getQuery(true)
-			->select($db->nq('enabled'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('element').' = '.$db->q('srp'))
-			->where($db->nq('folder').' = '.$db->q('system'));
+			->select($db->qn('enabled'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('element').' = '.$db->q('srp'))
+			->where($db->qn('folder').' = '.$db->q('system'));
 		$db->setQuery($query);
 		$enableSRP = $db->loadResult();
 		

@@ -181,7 +181,7 @@ class LiveUpdateController extends JController
 	 * Displays the current view
 	 * @param bool $cachable Ignored!
 	 */
-	public final function display($cachable = false)
+	public final function display($cachable = false, $urlparams = false)
 	{
 		$viewLayout	= JRequest::getCmd( 'layout', 'default' );
 

@@ -600,7 +600,7 @@ class AECoreDomainFinalization extends AEAbstractPart
 			if( !(count($allFiles) > $countQuota) )
 			{
 				// No, effectively skip the quota checking
-				$leftover =& $allFiles;
+				$leftover = $allFiles;
 			}
 			else
 			{
@@ -635,7 +635,7 @@ class AECoreDomainFinalization extends AEAbstractPart
 		else
 		{
 			// No count quotas are applied
-			$leftover =& $allFiles;
+			$leftover = $allFiles;
 		}
 
 		// Do we need to apply size quotas?
@@ -929,11 +929,11 @@ class AECoreDomainFinalization extends AEAbstractPart
 		$statsTable = AEPlatform::getInstance()->tableNameStats;
 		$db = AEFactory::getDatabase( AEPlatform::getInstance()->get_platform_database_options() );
 		$query = $db->getQuery(true)
-			->select($db->nq('id'))
-			->from($db->nq($statsTable))
-			->where($db->nq('status').' = '.$db->q('complete'))
-			->where($db->nq('filesexist').'='.$db->q('0'))
-			->order($db->nq('id').' DESC');
+			->select($db->qn('id'))
+			->from($db->qn($statsTable))
+			->where($db->qn('status').' = '.$db->q('complete'))
+			->where($db->qn('filesexist').'='.$db->q('0'))
+			->order($db->qn('id').' DESC');
 		
 		$db->setQuery($query, $limit, 100000);
 		$array = $db->loadResultArray();
@@ -947,8 +947,8 @@ class AECoreDomainFinalization extends AEAbstractPart
 		$ids = implode(',', $ids);
 
 		$query = $db->getQuery(true)
-			->delete($db->nq($statsTable))
-			->where($db->nq('id')." IN ($ids)");
+			->delete($db->qn($statsTable))
+			->where($db->qn('id')." IN ($ids)");
 		$db->setQuery($query);
 		$db->query();
 	}

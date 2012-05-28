@@ -48,62 +48,62 @@ class AkeebaControllerPostsetup extends FOFController
 		
 		if($enableSRP) {
 			$query = $db->getQuery(true)
-				->update($db->nq('#__extensions'))
-				->set($db->nq('enabled').' = '.$db->q('1'))
-				->where($db->nq('element').' = '.$db->q('srp'))
-				->where($db->nq('folder').' = '.$db->q('system'));
+				->update($db->qn('#__extensions'))
+				->set($db->qn('enabled').' = '.$db->q('1'))
+				->where($db->qn('element').' = '.$db->q('srp'))
+				->where($db->qn('folder').' = '.$db->q('system'));
 			$db->setQuery($query);
 			$db->query();
 		} else {
 			$query = $db->getQuery(true)
-				->update($db->nq('#__extensions'))
-				->set($db->nq('enabled').' = '.$db->q('0'))
-				->where($db->nq('element').' = '.$db->q('srp'))
-				->where($db->nq('folder').' = '.$db->q('system'));
+				->update($db->qn('#__extensions'))
+				->set($db->qn('enabled').' = '.$db->q('0'))
+				->where($db->qn('element').' = '.$db->q('srp'))
+				->where($db->qn('folder').' = '.$db->q('system'));
 			$db->setQuery($query);
 			$db->query();
 		}
 		
 		if($enableAutoupdate) {
 			$query = $db->getQuery(true)
-				->update($db->nq('#__extensions'))
-				->set($db->nq('enabled').' = '.$db->q('1'))
-				->where($db->nq('element').' = '.$db->q('oneclickaction'))
-				->where($db->nq('folder').' = '.$db->q('system'));
+				->update($db->qn('#__extensions'))
+				->set($db->qn('enabled').' = '.$db->q('1'))
+				->where($db->qn('element').' = '.$db->q('oneclickaction'))
+				->where($db->qn('folder').' = '.$db->q('system'));
 			$db->setQuery($query);
 			$db->query();
 
 			$query = $db->getQuery(true)
-				->update($db->nq('#__extensions'))
-				->set($db->nq('enabled').' = '.$db->q('1'))
-				->where($db->nq('element').' = '.$db->q('akeebaupdatecheck'))
-				->where($db->nq('folder').' = '.$db->q('system'));
+				->update($db->qn('#__extensions'))
+				->set($db->qn('enabled').' = '.$db->q('1'))
+				->where($db->qn('element').' = '.$db->q('akeebaupdatecheck'))
+				->where($db->qn('folder').' = '.$db->q('system'));
 			$db->setQuery($query);
 			$db->query();
 		} else {
 			$query = $db->getQuery(true)
-				->update($db->nq('#__extensions'))
-				->set($db->nq('enabled').' = '.$db->q('0'))
-				->where($db->nq('element').' = '.$db->q('oneclickaction'))
-				->where($db->nq('folder').' = '.$db->q('system'));
+				->update($db->qn('#__extensions'))
+				->set($db->qn('enabled').' = '.$db->q('0'))
+				->where($db->qn('element').' = '.$db->q('oneclickaction'))
+				->where($db->qn('folder').' = '.$db->q('system'));
 			$db->setQuery($query);
 			$db->query();
 
 			$query = $db->getQuery(true)
-				->update($db->nq('#__extensions'))
-				->set($db->nq('enabled').' = '.$db->q('0'))
-				->where($db->nq('element').' = '.$db->q('akeebaupdatecheck'))
-				->where($db->nq('folder').' = '.$db->q('system'));
+				->update($db->qn('#__extensions'))
+				->set($db->qn('enabled').' = '.$db->q('0'))
+				->where($db->qn('element').' = '.$db->q('akeebaupdatecheck'))
+				->where($db->qn('folder').' = '.$db->q('system'));
 			$db->setQuery($query);
 			$db->query();
 		}
 		
 		// Update last version check and minstability. DO NOT USE JCOMPONENTHELPER!
 		$sql = $db->getQuery(true)
-			->select($db->nq('params'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('type').' = '.$db->q('component'))
-			->where($db->nq('element').' = '.$db->q('com_akeeba'));
+			->select($db->qn('params'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('type').' = '.$db->q('component'))
+			->where($db->qn('element').' = '.$db->q('com_akeeba'));
 		$db->setQuery($sql);
 		$rawparams = $db->loadResult();
 		if(version_compare(JVERSION, '1.6.0', 'ge')) {
@@ -118,10 +118,10 @@ class AkeebaControllerPostsetup extends FOFController
 
 		$data = $params->toString('JSON');
 		$sql = $db->getQuery(true)
-			->update($db->nq('#__extensions'))
-			->set($db->nq('params').' = '.$db->q($data))
-			->where($db->nq('element').' = '.$db->q('com_akeeba'))
-			->where($db->nq('type').' = '.$db->q('component'));
+			->update($db->qn('#__extensions'))
+			->set($db->qn('params').' = '.$db->q($data))
+			->where($db->qn('element').' = '.$db->q('com_akeeba'))
+			->where($db->qn('type').' = '.$db->q('component'));
 		$db->setQuery($sql);
 		$db->query();
 		

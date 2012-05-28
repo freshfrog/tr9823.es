@@ -212,7 +212,7 @@ defined('_JEXEC') or die('Restricted access');
 		<?php if($this->item->params->get('itemImage') && !empty($this->item->image)): ?>
 		  	<!-- Item Image -->
 			<div class="floatleft">
-			  	<a class="modal" rel="{handler: 'image'}" href="<?php echo $this->item->imageXLarge; ?>" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); ?>">
+			  	<a class="modal" rel="{handler: 'image'}" href="<?php echo $this->item->imageXLarge; ?>" title="<?php echo JText::_('K2_CLICK_TO_PREVIEW_IMAGE'); echo $this->item->title ?>">
 			  		<img src="<?php echo $this->item->image; ?>" alt="<?php if(!empty($this->item->image_caption)) echo K2HelperUtilities::cleanHtml($this->item->image_caption); else echo K2HelperUtilities::cleanHtml($this->item->title); ?>" itemprop="photo" class="rt-image floatleft smallmarginbottom" style="width:<?php echo $this->item->imageWidth; ?>px; height:auto;" />
 			  	</a>
 				<div class="clr"></div>
@@ -485,7 +485,7 @@ defined('_JEXEC') or die('Restricted access');
 								<div class="module-content">
 									<?php if($this->item->params->get('itemRelatedTitle', 1)): ?>
 									<a style="font-weight: normal" class="itemRelTitle"
-										href="<?php echo $item->link ?>"><?php echo substr(strip_tags($item->title),0,18); ?>
+										href="<?php echo $item->link ?>"><?php echo substr(strip_tags($item->title),0,15); ?>
 									</a>
 									<?php endif; ?>
 

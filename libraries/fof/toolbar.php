@@ -202,20 +202,24 @@ class FOFToolbar
 		JToolBarHelper::title(JText::_( FOFInput::getCmd('option','com_foobar',$this->input)).' &ndash; <small>'.JText::_($subtitle_key).'</small>', str_replace('com_', '', FOFInput::getCmd('option','com_foobar',$this->input)));
 
 		// Add toolbar buttons
-		if($this->perms->editstate) {
-			JToolBarHelper::publishList();
-			JToolBarHelper::unpublishList();
-			JToolBarHelper::divider();
-		}
-		if($this->perms->delete) {
-			$msg = JText::_(FOFInput::getCmd('option','com_foobar',$this->input).'_CONFIRM_DELETE');
-			JToolBarHelper::deleteList($msg);
+		if($this->perms->create) {
+			JToolBarHelper::addNewX();
 		}
 		if($this->perms->edit) {
 			JToolBarHelper::editListX();
 		}
-		if($this->perms->create) {
-			JToolBarHelper::addNewX();
+		if($this->perms->create || $this->perms->edit) {
+			JToolBarHelper::divider();
+		}
+
+		if($this->perms->editstate) {
+			JToolBarHelper::publishList();
+			JToolBarHelper::unpublishList();
+			JToolBarHelper::divider();
+		} 
+		if($this->perms->delete) {
+			$msg = JText::_(FOFInput::getCmd('option','com_foobar',$this->input).'_CONFIRM_DELETE');
+			JToolBarHelper::deleteList($msg);
 		}
 
 		$this->renderSubmenu();

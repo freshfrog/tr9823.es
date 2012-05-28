@@ -9,8 +9,6 @@
  */
 defined('_JEXEC') or die();
 
-jimport('joomla.application.component.model');
-
 /**
  * Akeeba statistics model class
  * used for all requirements of backup statistics in JP
@@ -165,9 +163,9 @@ class AkeebaModelStatistics extends FOFModel
 	{
 		$db = $this->getDBO();
 		$query = $db->getQuery(true)
-			->select('MAX('.$db->nq('id').')')
-			->from($db->nq('#__ak_stats'))
-			->where($db->nq('origin') .' != '.$db->q('restorepoint'));
+			->select('MAX('.$db->qn('id').')')
+			->from($db->qn('#__ak_stats'))
+			->where($db->qn('origin') .' != '.$db->q('restorepoint'));
 		$db->setQuery($query);
 		$id = $db->loadResult();
 
@@ -240,10 +238,12 @@ class AkeebaModelStatistics extends FOFModel
 	 * @param	int		$id		Backup record whose files we have to delete
 	 * @return bool True on success
 	 */
-	public function delete($id)
+	public function delete()
 	{
 		$db = $this->getDBO();
 
+		$id = $this->getState('id', 0);
+		
 		if( (!is_numeric($id)) || ($id <= 0) )
 		{
 			$this->setError(JText::_('STATS_ERROR_INVALIDID'));
@@ -263,13 +263,14 @@ class AkeebaModelStatistics extends FOFModel
 
 	/**
 	 * Delete the backup file of the stats record whose ID is set in the model
-	 * @param	int		$id		Backup record whose files we have to delete
 	 * @return bool True on success
 	 */
-	public function deleteFile($id)
+	public function deleteFile()
 	{
 		$db = $this->getDBO();
 
+		$id = $this->getState('id', 0);
+		
 		if( (!is_numeric($id)) || ($id <= 0) )
 		{
 			$this->setError(JText::_('STATS_ERROR_INVALIDID'));

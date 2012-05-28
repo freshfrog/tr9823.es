@@ -20,9 +20,9 @@ class AEUtilComconfig
 		$db = AEFactory::getDatabase();
 		
 		$sql = $db->getQuery(true)
-			->select($db->nq('params'))
-			->from($db->nq('#__extensions'))
-			->where($db->nq('element')." = ".$db->q('com_akeeba'));
+			->select($db->qn('params'))
+			->from($db->qn('#__extensions'))
+			->where($db->qn('element')." = ".$db->q('com_akeeba'));
 		$db->setQuery($sql);
 		$config_ini  = $db->loadResult();
 

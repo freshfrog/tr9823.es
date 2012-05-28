@@ -162,6 +162,13 @@ class FOFDispatcher extends JObject
 		$jlang->load($this->component, $paths[1], null, true);
 
 		if(!$this->onBeforeDispatch()) {
+
+			// For json, don't use normal 403 page, but a json encoded message
+			if(FOFInput::getVar('format', '') == 'json'){
+				echo json_encode(array('code' => '403', 'error' => $this->getError()));
+				exit();
+			}
+
 			if(version_compare(JVERSION, '1.6.0', 'ge')) {
 				return JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 			} else {

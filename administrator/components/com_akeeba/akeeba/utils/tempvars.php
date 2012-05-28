@@ -73,8 +73,8 @@ class AEUtilTempvars
 				$dbtag = self::get_storage_filename($tag);
 				$db = AEFactory::getDatabase();
 				$sql = $db->getQuery(true)
-					->delete($db->nq('#__ak_storage'))
-					->where($db->nq('tag').' = '.$db->q($dbtag));
+					->delete($db->qn('#__ak_storage'))
+					->where($db->qn('tag').' = '.$db->q($dbtag));
 				$db->setQuery($sql);
 				return $db->query();
 				break;
@@ -108,17 +108,17 @@ class AEUtilTempvars
 
 				// Delete any old records
 				$sql = $db->getQuery(true)
-					->delete($db->nq('#__ak_storage'))
-					->where($db->nq('tag').' = '.$db->q($storage_filename));
+					->delete($db->qn('#__ak_storage'))
+					->where($db->qn('tag').' = '.$db->q($storage_filename));
 				$db->setQuery($sql);
 				$db->query();
 				
 				// Add the new record
 				$sql = $db->getQuery(true)
-					->insert($db->nq('#__ak_storage'))
+					->insert($db->qn('#__ak_storage'))
 					->columns(array(
-						$db->nq('tag'),
-						$db->nq('data'),
+						$db->qn('tag'),
+						$db->qn('data'),
 					))->values($db->q($storage_filename).','.$db->q(self::encode($value)));
 				
 				$db->setQuery($sql);
@@ -146,9 +146,9 @@ class AEUtilTempvars
 			case 'db':
 				$db = AEFactory::getDatabase();
 				$sql = $db->getQuery(true)
-					->select($db->nq('data'))
-					->from($db->nq('#__ak_storage'))
-					->where($db->nq('tag').' = '.$db->q($storage_filename));
+					->select($db->qn('data'))
+					->from($db->qn('#__ak_storage'))
+					->where($db->qn('tag').' = '.$db->q($storage_filename));
 				$db->setQuery($sql);
 				$data = $db->loadResult();
 				break;

@@ -14,7 +14,7 @@ require_once(dirname(__FILE__).'/input.php');
 
 /**
  * FrameworkOnFramework controller class
- * 
+ *
  * FrameworkOnFramework is a set of classes whcih extend Joomla! 1.5 and later's
  * MVC framework with features making maintaining complex software much easier,
  * without tedious repetitive copying of the same code over and over again.
@@ -23,37 +23,37 @@ class FOFController extends JController
 {
 	/** @var string Current Joomla! version family (15 or 16) */
 	protected $jversion = '15';
-	
+
 	/** @var string The current view name; you can override it in the configuration */
 	protected $view = '';
-	
+
 	/** @var string The current component's name; you can override it in the configuration */
 	protected $component = 'com_foobar';
-	
+
 	/** @var string The current component's name without the com_ prefix */
 	protected $bareComponent = 'foobar';
-	
+
 	/** @var string The current layout; you can override it in the configuration */
 	protected $layout = null;
-	
+
 	/** @var array A cached copy of the class configuration parameter passed during initialisation */
 	protected $config = array();
-	
+
 	/** @var array The input variables array for this MVC triad; you can override it in the configuration */
 	protected $input = array();
-	
+
 	/** @var bool Set to true to enable CSRF protection on selected tasks */
 	protected $csrfProtection = true;
-	
+
 	/** @var string Overrides the name of the view's default model */
 	protected $modelName = null;
-	
+
 	/** @var string Overrides the name of the view's default view */
 	protected $viewName = null;
-	
+
 	/** @var array The tasks for which caching should be enabled by default */
 	protected $cacheableTasks = array('browse','read');
-	
+
 	/** @var array ACL permissions to group mapping for Joomla! 1.5; please note that we follow Joomla! 1.6's ACL naming conventions for uniformity in here. */
 	protected $aclMapJoomla15 = array(
 		'core.admin'		=> 'Super Administrator',
@@ -63,16 +63,16 @@ class FOFController extends JController
 		'core.edit'			=> 'Editor',
 		'core.edit.state'	=> 'Publisher'
 	);
-	
+
 	private $viewObject = null;
-	
+
 	private $modelObject = null;
 
 	/**
 	 * Gets a static (Singleton) instance of a controller class. It loads the
 	 * relevant controller file from the component's directory or, if it doesn't
 	 * exist, creates a new controller object out of thin air.
-	 * 
+	 *
 	 * @param string $option Component name, e.g. com_foobar
 	 * @param string $view The view name, also used for the controller name
 	 * @param array $config Configuration parameters
@@ -81,15 +81,15 @@ class FOFController extends JController
 	public static function &getAnInstance($option = null, $view = null, $config = array())
 	{
 		static $instances = array();
-		
+
 		$hash = $option.$view;
 		if(!array_key_exists($hash, $instances)) {
 			$instances[$hash] = self::getTmpInstance($option, $view, $config);
 		}
-		
+
 		return $instances[$hash];
 	}
-	
+
 	public static function &getTmpInstance($option = null, $view = null, $config = array())
 	{
 		$config['option'] = !is_null($option) ? $option : JRequest::getCmd('option','com_foobar');
@@ -123,12 +123,12 @@ class FOFController extends JController
 				require_once $path;
 			}
 		}
-		
+
 		if(!class_exists($className)) {
 			$classType = FOFInflector::singularize($config['view']);
 			$className = ucfirst(str_replace('com_', '', $config['option'])).'Controller'.ucfirst($classType);
 		}
-		
+
 		if (!class_exists( $className )) {
 			$app = JFactory::getApplication();
 			if($app->isSite()) {
@@ -160,13 +160,13 @@ class FOFController extends JController
 			$className = 'FOFController';
 		}
 		$instance = new $className($config);
-		
+
 		return $instance;
 	}
-	
+
 	/**
 	 * Public constructor of the Controller class
-	 * 
+	 *
 	 * @param array $config Optional configuration parameters
 	 */
 	public function __construct($config = array())
@@ -177,7 +177,7 @@ class FOFController extends JController
 		if( version_compare( JVERSION, '1.6.0', 'ge' ) ) {
 			$this->jversion = '16';
 		}
-		
+
 		// Cache the config
 		$this->config = $config;
 
@@ -192,44 +192,44 @@ class FOFController extends JController
 		$this->component = FOFInput::getCmd('option','com_foobar',$this->input);
 		$this->view = FOFInput::getCmd('view','cpanel',$this->input);
 		$this->layout = FOFInput::getCmd('layout',null,$this->input);
-		
+
 		// Overrides from the config
 		if(array_key_exists('option', $config)) $this->component = $config['option'];
 		if(array_key_exists('view', $config)) $this->view = $config['view'];
 		if(array_key_exists('layout', $config)) $this->layout = $config['layout'];
-		
+
 		FOFInput::setVar('option', $this->component, $this->input);
-		
+
 		// Set the bareComponent variable
 		$this->bareComponent = str_replace('com_', '', strtolower($this->component));
-		
+
 		// Set the $name/$_name variable
 		if(version_compare(JVERSION, '1.6.0', 'ge')) {
 			$this->name = $this->bareComponent;
 		} else {
 			$this->_name = $this->bareComponent;
 		}
-		
+
 		// Set the _basePath / basePath variable
 		$isAdmin = version_compare(JVERSION, '1.6.0', 'ge') ? (!JFactory::$application ? false : JFactory::getApplication()->isAdmin()) : JFactory::getApplication()->isAdmin();
 		$basePath = $isAdmin ? JPATH_ADMINISTRATOR : JPATH_ROOT;
 		$basePath .= '/components/'.$this->component;
-		if(array_key_exists('base_path', $config)) $basePath = $options['base_path'];
+		if(array_key_exists('base_path', $config)) $basePath = $config['base_path'];
 		if(version_compare(JVERSION, '1.6.0', 'ge')) {
 			$this->basePath = $basePath;
 		} else {
 			$this->_basePath = $basePath;
 		}
-		
+
 		// Set the CSRF protection
 		if(array_key_exists('csrf_protection', $config)) {
 			$this->csrfProtection = $config['csrf_protection'];
 		}
-		
+
 		// Set any model/view name overrides
 		if(array_key_exists('viewName', $config)) $this->setThisViewName($config['viewName']);
 		if(array_key_exists('modelName', $config)) $this->setThisModelName($config['modelName']);
-		
+
 		// Set the ACL preferences
 		if( !version_compare( JVERSION, '1.6.0', 'ge' ) ) {
 			// Joomla! 1.5 ACL mapping
@@ -260,7 +260,7 @@ class FOFController extends JController
 				}
 			}
 		}
-		
+
 		// Caching
 		if(array_key_exists('cacheableTasks', $config)) {
 			if(is_array($config['cacheableTasks'])) $this->cacheableTasks = $config['cacheableTasks'];
@@ -270,7 +270,7 @@ class FOFController extends JController
 	/**
 	 * Executes a given controller task. The onBefore<task> and onAfter<task>
 	 * methods are called automatically if they exist.
-	 * 
+	 *
 	 * @param string $task
 	 * @return null|bool False on execution failure
 	 */
@@ -280,7 +280,7 @@ class FOFController extends JController
 			$result = $this->$method_name();
 			if(!$result) return false;
 		}
-		
+
 		// Do not allow the display task to be directly called
 		$task = strtolower($task);
 		if (isset($this->taskMap[$task])) {
@@ -295,23 +295,23 @@ class FOFController extends JController
 		if($doTask == 'display') {
 			JError::raiseError(400, 'Bad Request');
 		}
-		
+
 		parent::execute($task);
-		
+
 		$method_name = 'onAfter'.ucfirst($task);
 		if(method_exists($this, $method_name)) {
 			$result = $this->$method_name();
 			if(!$result) return false;
 		}
 	}
-	
+
 	/**
 	 * Default task. Assigns a model to the view and asks the view to render
 	 * itself.
-	 * 
+	 *
 	 * YOU MUST NOT USETHIS TASK DIRECTLY IN A URL. It is supposed to be
 	 * used ONLY inside your code. In the URL, use task=browse instead.
-	 * 
+	 *
 	 * @param bool $cachable Is this view cacheable?
 	 */
 	public function display($cachable = false, $urlparams = false)
@@ -366,25 +366,25 @@ class FOFController extends JController
 				$view->display();
 			}
 		}
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Implements a default browse task, i.e. read a bunch of records and send
 	 * them to the browser.
-	 * 
+	 *
 	 * @param bool $cachable Is this view cacheable?
 	 */
 	public function browse()
 	{
 		$this->display(in_array('browse', $this->cacheableTasks));
 	}
-	
+
 	/**
 	 * Single record read. The id set in the request is passed to the model and
 	 * then the item layout is used to render the result.
-	 * 
+	 *
 	 * @param bool $cachable Is this view cacheable?
 	 */
 	public function read()
@@ -399,10 +399,10 @@ class FOFController extends JController
 		// Display
 		$this->display(in_array('read', $this->cacheableTasks));
 	}
-	
+
 	/**
 	 * Single record add. The form layout is used to present a blank page.
-	 * 
+	 *
 	 * @param bool $cachable Is this view cacheable?
 	 */
 	public function add()
@@ -421,7 +421,7 @@ class FOFController extends JController
 	/**
 	 * Single record edit. The ID set in the request is passed to the model,
 	 * then the form layout is used to edit the result.
-	 * 
+	 *
 	 * @param bool $cachable Is this view cacheable?
 	 */
 	public function edit()
@@ -455,12 +455,21 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$model = $this->getThisModel();
 		$result = $this->applySave();
 
 		// Redirect to the edit task
-		if($result) {
+		if($result)
+		{
+			//check if i'm using an AJAX call, in this case there is no need to redirect
+			$format = FOFInput::getString('format','', $this->input);
+			if($format == 'json')
+			{
+				echo json_encode($result);
+				return;
+			}
+
 			$id = FOFInput::getInt('id', 0, $this->input);
 			$textkey = strtoupper($this->component).'_LBL_'.strtoupper($this->view).'_SAVED';
 			if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
@@ -478,11 +487,20 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$result = $this->applySave();
 
 		// Redirect to the display task
-		if($result) {
+		if($result)
+		{
+			//check if i'm using an AJAX call, in this case there is no need to redirect
+			$format = FOFInput::getString('format','', $this->input);
+			if($format == 'json')
+			{
+				echo json_encode($result);
+				return;
+			}
+
 			$textkey = strtoupper($this->component).'_LBL_'.strtoupper($this->view).'_SAVED';
 			if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
 			$url = !empty($customURL) ? $customURL : 'index.php?option='.$this->component.'&view='.FOFInflector::pluralize($this->view);
@@ -499,7 +517,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$result = $this->applySave();
 
 		// Redirect to the display task
@@ -519,7 +537,7 @@ class FOFController extends JController
 		$model = $this->getThisModel();
 		if(!$model->getId()) $model->setIDsFromRequest();
 		$model->checkin();
-		
+
 		// Remove any saved data
 		JFactory::getSession()->set($model->getHash().'savedata', null );
 
@@ -535,7 +553,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$this->setaccess(0);
 	}
 
@@ -545,7 +563,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$this->setaccess(1);
 	}
 
@@ -555,7 +573,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$this->setaccess(2);
 	}
 
@@ -565,7 +583,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$this->setstate(1);
 	}
 
@@ -575,7 +593,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$this->setstate(0);
 	}
 
@@ -585,7 +603,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$model = $this->getThisModel();
 		if(!$model->getId()) $model->setIDsFromRequest();
 
@@ -609,7 +627,15 @@ class FOFController extends JController
 			}
 		}
 
-		$model->reorder();
+		$status = $model->reorder();
+
+		//check if i'm using an AJAX call, in this case there is no need to redirect
+		$format = FOFInput::getString('format','', $this->input);
+		if($format == 'json')
+		{
+			echo json_encode($status);
+			return;
+		}
 
 		// redirect
 		if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
@@ -624,11 +650,20 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$model = $this->getThisModel();
 		if(!$model->getId()) $model->setIDsFromRequest();
 
 		$status = $model->move(1);
+
+		//check if i'm using an AJAX call, in this case there is no need to redirect
+		$format = FOFInput::getString('format','', $this->input);
+		if($format == 'json')
+		{
+			echo json_encode($status);
+			return;
+		}
+
 		// redirect
 		if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
 		$url = !empty($customURL) ? $customURL : 'index.php?option='.$this->component.'&view='.FOFInflector::pluralize($this->view);
@@ -648,11 +683,20 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$model = $this->getThisModel();
 		if(!$model->getId()) $model->setIDsFromRequest();
 
 		$status = $model->move(-1);
+
+		//check if i'm using an AJAX call, in this case there is no need to redirect
+		$format = FOFInput::getString('format','', $this->input);
+		if($format == 'json')
+		{
+			echo json_encode($status);
+			return;
+		}
+
 		// redirect
 		if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
 		$url = !empty($customURL) ? $customURL : 'index.php?option='.$this->component.'&view='.FOFInflector::pluralize($this->view);
@@ -672,7 +716,7 @@ class FOFController extends JController
 		if($this->csrfProtection) {
 			$this->_csrfProtection();
 		}
-		
+
 		$model = $this->getThisModel();
 		if(!$model->getId()) $model->setIDsFromRequest();
 		$status = $model->delete();
@@ -705,6 +749,14 @@ class FOFController extends JController
 		if(!$model->getId()) $model->setIDsFromRequest();
 
 		$status = $model->publish($state);
+
+		//check if i'm using an AJAX call, in this case there is no need to redirect
+		$format = FOFInput::getString('format','', $this->input);
+		if($format == 'json')
+		{
+			echo json_encode($status);
+			return;
+		}
 
 		// redirect
 		if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
@@ -775,10 +827,18 @@ class FOFController extends JController
 				$status = $this->onAfterApplySave();
 			}
 		}
-		
+
 		FOFInput::setVar('id', $model->getId(), $this->input);
 
 		if(!$status) {
+			//check if i'm using an AJAX call, in this case there is no need to redirect
+			$format = FOFInput::getString('format','', $this->input);
+			if($format == 'json')
+			{
+				echo json_encode($status);
+				return;
+			}
+
 			// Redirect on error
 			$id = $model->getId();
 			if($customURL = FOFInput::getString('returnurl','',$this->input)) $customURL = base64_decode($customURL);
@@ -813,7 +873,7 @@ class FOFController extends JController
 				), $config
 			));
 		}
-		
+
 		return $this->modelObject;
 	}
 
@@ -836,10 +896,10 @@ class FOFController extends JController
 				$prefix = ucfirst($this->bareComponent).'View';
 				$viewName = ucfirst($this->view);
 			}
-			
+
 			$document = JFactory::getDocument();
 			$viewType	= $document->getType();
-			
+
 			if(!array_key_exists('input', $config)) {
 				$config['input'] = $this->input;
 			}
@@ -851,15 +911,15 @@ class FOFController extends JController
 				), $config)
 			);
 		}
-		
+
 		return $this->viewObject;
 	}
-	
+
 	protected function createModel($name, $prefix = '', $config = array())
 	{
 		return $this->_createModel($name, $prefix, $config);
 	}
-	
+
 	/**
 	 * Method to load and return a model object.
 	 *
@@ -882,12 +942,12 @@ class FOFController extends JController
 		$result = FOFModel::getAnInstance($modelName, $classPrefix, $config);
 		return $result;
 	}
-	
+
 	protected function createView($name, $prefix = '', $type = '', $config = array())
 	{
 		return $this->_createView($name, $prefix, $type, $config);
 	}
-	
+
 	function &_createView( $name, $prefix = '', $type = '', $config = array() )
 	{
 		$result = null;
@@ -896,7 +956,7 @@ class FOFController extends JController
 		$viewName	 = preg_replace( '/[^A-Z0-9_]/i', '', $name );
 		$classPrefix = preg_replace( '/[^A-Z0-9_]/i', '', $prefix );
 		$viewType	 = preg_replace( '/[^A-Z0-9_]/i', '', $type );
-		
+
 		// Guess the component name and view
 		preg_match('/(.*)View$/', $prefix, $m);
 		$component = 'com_'.strtolower($m[1]);
@@ -905,15 +965,15 @@ class FOFController extends JController
 		}
 		if(array_key_exists('option', $config)) if($config['option']) $component = $config['option'];
 		$config['option'] = $component;
-		
+
 		$view = strtolower($viewName);
 		if(array_key_exists('input', $config)) {
 			$view = FOFInput::getCmd('view',$view,$config['input']);
 		}
 		if(array_key_exists('view', $config)) if($config['view']) $view = $config['view'];
-		
+
 		$config['view'] = $view;
-		
+
 		if(array_key_exists('input', $config)) {
 			FOFInput::setVar('option', $config['option'], $config['input']);
 			FOFInput::setVar('view', $config['view'], $config['input']);
@@ -967,23 +1027,23 @@ class FOFController extends JController
 			if ($path) {
 				require_once $path;
 			}
-			
+
 			if(!class_exists($viewClass) && FOFInflector::isSingular($name)) {
 				$name = FOFInflector::pluralize($name);
 				$viewClass = $classPrefix . ucfirst($name);
 				$result = $this->_createView($name, $prefix, $type, $config);
 			}
-			
+
 			if(!class_exists($viewClass)) {
 				$viewClass = 'FOFView'.ucfirst($type);
-				
+
 				$app = JFactory::getApplication();
 				if($app->isSite()) {
 					$basePath = JPATH_SITE;
 				} else {
 					$basePath = JPATH_ADMINISTRATOR;
 				}
-				
+
 				if(!array_key_exists('template_path', $config)) {
 					$config['template_path'] = array(
 						$basePath.'/components/'.$config['option'].'/views/'.FOFInflector::pluralize($config['view']).'/tmpl',
@@ -991,10 +1051,10 @@ class FOFController extends JController
 						$basePath.'/components/'.$config['option'].'/views/'.FOFInflector::singularize($config['view']).'/tmpl',
 						JPATH_BASE.'/templates/'.JFactory::getApplication()->getTemplate().'/html/'.$config['option'].'/'.FOFInflector::singularize($config['view']),
 						$basePath.'/components/'.$config['option'].'/views/'.$config['view'].'/tmpl',
-						JPATH_BASE.'/templates/'.JFactory::getApplication()->getTemplate().'/html/'.$config['option'].'/'.$config['view'],						
+						JPATH_BASE.'/templates/'.JFactory::getApplication()->getTemplate().'/html/'.$config['option'].'/'.$config['view'],
 					);
 				}
-				
+
 				if(!array_key_exists('helper_path', $config)) {
 					$config['helper_path'] = array(
 						$basePath.'/components/'.$config['option'].'/helpers',
@@ -1007,21 +1067,21 @@ class FOFController extends JController
 		$result = new $viewClass($config);
 		return $result;
 	}
-	
+
 	public function setThisViewName($viewName)
 	{
 		$this->viewName = $viewName;
 	}
-	
+
 	public function setThisModelName($modelName)
 	{
 		$this->modelName = $modelName;
 	}
-	
+
 	/**
 	 * Checks if the current user has enough privileges for the requested ACL
 	 * area.
-	 * 
+	 *
 	 * @param string $area The ACL area, e.g. core.manage.
 	 */
 	protected function checkACL($area)
@@ -1033,7 +1093,7 @@ class FOFController extends JController
 			return $user->authorize($this->component, $area);
 		}
 	}
-	
+
 	protected function onBeforeApplySave(&$data)
 	{
 		return $data;
@@ -1043,60 +1103,60 @@ class FOFController extends JController
 	{
 		return true;
 	}
-	
+
 	/**
 	 * ACL check before changing the access level; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeAccesspublic()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * ACL check before changing the access level; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeAccessregistered()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * ACL check before changing the access level; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeAccessspecial()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * ACL check before adding a new record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeAdd()
 	{
 		return $this->checkACL('core.create');
 	}
-	
+
 	/**
 	 * ACL check before saving a new/modified record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeApply()
 	{
 		return $this->checkACL('core.edit');
 	}
-	
+
 	/**
 	 * ACL check before allowing someone to browse
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeBrowse()
@@ -1108,40 +1168,40 @@ class FOFController extends JController
 			return true;
 		}
 	}
-	
+
 	/**
 	 * ACL check before cancelling an edit
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeCancel()
 	{
 		return $this->checkACL('core.edit');
 	}
-	
+
 	/**
 	 * ACL check before editing a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeEdit()
 	{
 		return $this->checkACL('core.edit');
 	}
-	
+
 	/**
 	 * ACL check before changing the ordering of a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeOrderdown()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * ACL check before changing the ordering of a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeOrderup()
@@ -1151,64 +1211,64 @@ class FOFController extends JController
 
 	/**
 	 * ACL check before changing the publish status of a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforePublish()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * ACL check before removing a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeRemove()
 	{
 		return $this->checkACL('core.delete');
 	}
-	
+
 	/**
 	 * ACL check before saving a new/modified record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeSave()
 	{
 		return $this->checkACL('core.edit');
 	}
-	
+
 	/**
 	 * ACL check before saving a new/modified record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeSavenew()
 	{
 		return $this->checkACL('core.edit');
 	}
-		
+
 	/**
 	 * ACL check before changing the ordering of a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeSaveorder()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * ACL check before changing the publish status of a record; override to customise
-	 * 
+	 *
 	 * @return bool
 	 */
 	protected function onBeforeUnpublish()
 	{
 		return $this->checkACL('core.edit.state');
 	}
-	
+
 	/**
 	 * Applies CSRF protection by means of a standard Joomla! token (nonce) check.
 	 * Raises a 403 Access Forbidden error through JError if the check fails.
@@ -1231,7 +1291,7 @@ class FOFController extends JController
 				if(!$hasToken) $hasToken = FOFInput::getVar('_token', null, $this->input) == $token;
 			}
 		}
-		
+
 		if(!$hasToken) {
 			JError::raiseError('403', version_compare(JVERSION, '1.6.0', 'ge') ? JText::_('JLIB_APPLICATION_ERROR_ACCESS_FORBIDDEN') : JText::_('Request Forbidden'));
 		}

@@ -80,6 +80,8 @@ JFactory::getDocument()->addScriptDeclaration($script);
 	</br>
 	<div class="postsetup-desc"><?php echo JText::_('AKEEBA_POSTSETUP_DESC_MINSTABILITY');?></div>
 	<br/>
+	<?php else: ?>
+	<input type="hidden" id="minstability" name="minstability" value="stable" />
 	<?php endif; ?>
 	
 	<br/>
