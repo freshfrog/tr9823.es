@@ -79,8 +79,9 @@ defined('_JEXEC') or die('Restricted access');
 					<?php if($this->item->params->get('itemAuthor')): ?>
 					<!-- Item Author -->
 					<span class="itemAuthor">
+					<span class="itemAuthor">
 						<em><?php echo JText::_('K2_FONT_SIZE'); ?>&nbsp;</em>
-						<a rel="author" href="<?php echo $item->author->link; ?>"><?php echo $this->item->author->name; ?></a>
+						<a rel="author" href="<?php echo $this->item->author->link; ?>" itemprop="author" target="_blank"><?php echo $this->item->author->name; ?></a>
 					</span>
 					<?php endif; ?>
 				</li>

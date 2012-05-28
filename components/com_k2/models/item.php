@@ -233,6 +233,7 @@ class K2ModelItem extends JModel
                 $item->author = $author;
                 $item->author->link = JRoute::_(K2HelperRoute::getUserRoute($item->created_by));
                 $item->author->profile = K2ModelItem::getUserProfile($item->created_by);
+		$item->author->link = $item->author->profile->url;
                 $item->author->avatar = K2HelperUtilities::getAvatar($author->id, $author->email, $params->get('userImageWidth'));
             }
 
