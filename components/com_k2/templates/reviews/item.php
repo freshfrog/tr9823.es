@@ -79,14 +79,8 @@ defined('_JEXEC') or die('Restricted access');
 					<?php if($this->item->params->get('itemAuthor')): ?>
 					<!-- Item Author -->
 					<span class="itemAuthor">
-						<em><?php echo "escrito por"; ?>&nbsp;</em>
-						<span>
-						<?php if(empty($this->item->created_by_alias)): ?>
-						<?php echo $this->item->author->name; ?>
-						<?php else: ?>
-						<?php echo $this->item->author->name; ?>
-						<?php endif; ?>
-						</span>
+						<em><?php echo JText::_('K2_FONT_SIZE'); ?>&nbsp;</em>
+						<a rel="author" href="<?php echo $item->author->link; ?>"><?php echo $this->item->author->name; ?></a>
 					</span>
 					<?php endif; ?>
 				</li>

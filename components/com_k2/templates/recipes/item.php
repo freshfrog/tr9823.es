@@ -72,21 +72,15 @@ defined('_JEXEC') or die('Restricted access');
 			$this->item->params->get('itemImageGalleryAnchor') ||
 			$this->item->params->get('itemCommentsAnchor')
 		): ?>
-		
+
 		<div class="itemToolbar" style="background: none; border: none; margin: 0">
 			<ul style="text-align: left">
 				<li>			
 					<?php if($this->item->params->get('itemAuthor')): ?>
 					<!-- Item Author -->
 					<span class="itemAuthor">
-						<em><?php echo "escrito por"; ?>&nbsp;</em>
-						<span itemprop="author">
-						<?php if(empty($this->item->created_by_alias)): ?>
-						<?php echo $this->item->author->name; ?>
-						<?php else: ?>
-						<?php echo $this->item->author->name; ?>
-						<?php endif; ?>
-						</span>
+						<em><?php echo JText::_('K2_FONT_SIZE'); ?>&nbsp;</em>
+						<a rel="author" href="<?php echo $item->author->link; ?>" itemprop="author"><?php echo $this->item->author->name; ?></a>
 					</span>
 					<?php endif; ?>
 				</li>
@@ -94,7 +88,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php if($this->item->params->get('itemFontResizer')): ?>
 				<!-- Font Resizer -->
 				<li>
-					<span class="itemTextResizerTitle"><?php echo JText::_('tamaño de fuente'); ?></span>
+					<span class="itemTextResizerTitle"><?php echo JText::_('K2_FONT_SIZE'); ?></span>
 					<a href="#" id="fontDecrease">
 						<span><?php echo JText::_('K2_DECREASE_FONT_SIZE'); ?></span>
 						<img src="<?php echo JURI::root(true); ?>/components/com_k2/images/system/blank.gif" alt="<?php echo JText::_('K2_DECREASE_FONT_SIZE'); ?>" />
